@@ -1,0 +1,81 @@
+<div class="container">
+
+</div>
+<!-- New Form-->
+    <div class="container">
+	<div class="form-container">
+      <!-- Example row of columns -->
+<!-- 	 <form class="task-manager-form"> -->
+  <form class="new-task-form" [formGroup]="newTaskForm" (ngSubmit)="onSubmit()">
+	  <div class="form-group row">
+		<label for="new-task" class="col-sm-2 col-form-label">Task</label>
+		<div class="col-sm-10">
+		  <input type="text" class="form-control-text" id="new-task" formControlName="newTask">
+		</div>
+	  </div>
+	  <div class="form-group row">
+		<label for="myRange" class="col-sm-2 col-form-label">Priority</label>
+		<div class="col-sm-4">
+		  <input type="range" min="1" max="100" value="50" class="slider" id="myRange" formControlName="priority"> <span class="range-value">{{newTaskForm.value.priority}}</span>
+		</div>
+	  </div>
+	  
+	  <div class="form-group row">
+		<label for="staticEmail" class="col-sm-2 col-form-label">Parent Task</label>
+		<div class="col-sm-10">
+		  <input type="text" class="form-control-text" id="new-parent-task" formControlName="parentTask">
+		</div>
+	  </div>
+	  
+	  <div class="form-group row">
+		<label for="staticEmail" class="col-sm-2 col-form-label">Start Date</label>
+		<div class="col-sm-3">
+		<div class="input-group input-append date" class="datePicker">	
+		<mat-form-field [formGroup]="newTaskForm">
+                  <input #datePicker matInput [matDatepicker]="startDate" formControlName="startDate" placeholder="Date">
+                  <mat-datepicker-toggle matSuffix [for]="startDate">
+                  </mat-datepicker-toggle>
+                  <mat-datepicker #startDate></mat-datepicker>
+    </mat-form-field>
+		</div>			
+		</div>
+	  </div>
+	  
+	  <div class="form-group row">
+		<label for="staticEmail" class="col-sm-2 col-form-label">End Date</label>
+		  <div class="col-sm-3">
+		  <div class="input-group input-append date" class="datePicker">
+                <mat-form-field [formGroup]="newTaskForm">
+                  <input #datePicker matInput [matDatepicker]="endDate" formControlName="endDate" placeholder="Date">
+                  <mat-datepicker-toggle matSuffix [for]="endDate">
+                  </mat-datepicker-toggle>
+                  <mat-datepicker #endDate></mat-datepicker>
+    					</mat-form-field>
+		</div>
+		</div>
+	  </div> 
+	  
+	  <div class="form-group row">
+		<label for="staticEmail" class="col-sm-2 col-form-label"></label>
+		  <div class="col-sm-6">
+			<button type="submit" class="btn btn-primary" (click)="createNewTask()">Add Task</button> 
+      <button class="btn btn-default margin-20-left">Reset</button>
+		</div>
+	  </div> 
+	  
+  </form>
+
+
+
+	<!-- </form> -->
+	</div>
+  </div> <!-- /container -->  
+
+
+
+
+<!-- 
+Copyright Google LLC. All Rights Reserved.
+Use of this source code is governed by an MIT-style license that
+can be found in the LICENSE file at http://angular.io/license
+-->

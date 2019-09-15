@@ -1,0 +1,11 @@
+const express = require('express');
+const router = express.Router();
+const specialty_controller = require('../controller/specialty.controller');
+const middleware = require('../config/middleware');
+
+router.get('/', middleware.tokenValidation, specialty_controller.specialties);
+router.post('/create', middleware.tokenValidation, specialty_controller.specialty_create);
+router.put('/:id/update', middleware.tokenValidation, specialty_controller.specialty_update);
+router.post('/:id/delete', middleware.tokenValidation, specialty_controller.specialty_delete);
+
+module.exports = router;

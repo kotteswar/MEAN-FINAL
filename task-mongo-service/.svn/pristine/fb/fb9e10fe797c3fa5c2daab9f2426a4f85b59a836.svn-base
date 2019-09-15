@@ -1,0 +1,11 @@
+const express = require('express');
+const router = express.Router();
+const insurance_controller = require('../controller/insurance.controller');
+const middleware = require('../config/middleware');
+
+router.get('/', middleware.tokenValidation, insurance_controller.insurances);
+router.post('/create', middleware.tokenValidation, insurance_controller.insurance_create);
+router.put('/:id/update', middleware.tokenValidation, insurance_controller.insurance_update);
+router.post('/:id/delete', middleware.tokenValidation, insurance_controller.insurance_delete);
+
+module.exports = router;

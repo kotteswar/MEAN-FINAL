@@ -1,0 +1,12 @@
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+
+const insuranceSchema = new Schema({
+    CompanyName : {type: String, unique:true, required:true },
+    PlanName : {type: String, unique:true, required:true },
+    Active: {type: Boolean, default: true},
+    CreatedDate: { type: Date, default: Date.now },
+    UpdatedDate: { type: Date, default: Date.now }
+});
+
+module.exports = mongoose.model('Insurance', insuranceSchema);

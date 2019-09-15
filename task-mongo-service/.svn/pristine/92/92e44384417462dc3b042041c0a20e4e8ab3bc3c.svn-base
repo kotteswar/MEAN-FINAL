@@ -1,0 +1,67 @@
+const Insurance = require('../model/insurance.model');
+const constants = require('../config/constants');
+
+exports.insurances = function (req, res) {
+    Insurance.find({}, function (err, users) {
+        if (err) res.send(err);
+        res.send(users);
+    })
+
+};
+
+exports.insurance_create = function(req, res){
+    const insurance = new Insurance({
+        CompanyName: req.body.companyname,
+        PlanName: req.body.planname
+    })
+
+    insurance.save(function (err) {
+        if (err) {            
+            res.send(err)
+        }
+        else {
+            return res.status(200).send({
+                success: true
+            });
+        }
+    })
+}
+
+exports.insurance_update = function(req, res){
+    let insurance = {
+        CompanyName: req.body.companyname,
+        PlanName: req.body.planname
+    };
+
+    Insurance.findOneAndUpdate({ _id: req.params.id }, insurance, function (err, insurance) {
+        if (err) {            
+            res.send(err)
+        }
+        if (!insurance) { errorHandler(res, "Insurance Not Found"); }
+        else {
+            return res.status(200).send({
+                success: true
+            });
+        }
+    })
+}
+
+exports.insurance_delete = function(req, res){
+    let insurance = {
+        Active: false
+    }
+    Insurance.findOneAndUpdate({_id: req.params.id}, insurance, function (err, insurance) {
+        if (err) res.send(err);
+        if (!insurance) { errorHandler(res, "Insurance Not Found"); }
+        else {
+            res.send('Deleted successfully!');
+        }
+    })
+}
+
+function errorHandler(res, msg) {
+    return res.status(403).send({
+        success: false,
+        message: msg
+    });
+}

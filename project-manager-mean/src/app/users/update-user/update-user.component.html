@@ -1,0 +1,61 @@
+
+<!-- New Form-->
+<div class="container">
+        <h2 style="text-align: center;">ADD USER</h2>
+	<div class="form-container">
+      <!-- Example row of columns -->
+<!-- 	 <form class="task-manager-form"> -->
+  <form class="new-task-form" [formGroup]="updateUserForm" *ngIf="userList">
+
+    <div class="form-group row">
+        <label for="new-task" class="col-sm-2 col-form-label">First Name</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control-text" id="firstName" formControlName="firstName" [(ngModel)]="userList.FirstName">
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="staticEmail" class="col-sm-2 col-form-label">Last Name</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control-text" id="lastName" formControlName="lastName" [(ngModel)]="userList.LastName">
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="staticEmail" class="col-sm-2 col-form-label">Employee ID</label>
+        <div class="col-sm-10">
+        <input type="text" class="form-control-text" id="employeeId" formControlName="employeeId" [(ngModel)]="userList.EmployeeId">
+        </div>
+    </div>
+	  
+
+	 <div class="form-group row">
+		<label for="staticEmail" class="col-sm-2 col-form-label"></label>
+		  <div class="col-sm-6">
+			<button type="submit" class="btn btn-primary" (click)="updateUser()">Add User</button> 
+      <span class="btn btn-default margin-20-left" (click)="resetForm()">Reset</span>
+		</div>
+	  </div> 
+	  
+  </form>
+
+
+
+	<!-- </form> -->
+  </div>
+
+
+</div>
+
+
+
+   <!-- /container -->  
+
+
+
+
+<!-- 
+Copyright Google LLC. All Rights Reserved.
+Use of this source code is governed by an MIT-style license that
+can be found in the LICENSE file at http://angular.io/license
+-->

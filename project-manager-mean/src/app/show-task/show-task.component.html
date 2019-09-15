@@ -1,0 +1,142 @@
+
+<div class="container go-to-button"> 
+          <button class="btn btn-brown float-right" (click)="goToCreatePage()" >Go to Create page</button>
+ </div> 
+  <div class="container">  
+      <div class="view-task">
+        <form class="show-task-form"  *ngIf="taskList && filterModel">
+          <div class="row">
+              <div class="col-sm-6 col-xs-12">
+                <label class="col-xs-12 col-sm-3 nopadding">Task:</label>
+                <input class="col-xs-12 col-sm-9" type="text" id="view-task-text" name="TaskName" value=""  [(ngModel)]="filterModel.TaskName" (change)="applyFilter(filterModel.TaskName,'Task')"/>
+              </div>
+              <div class="col-sm-6 col-xs-12">
+                <label class="col-xs-12 col-sm-3 nopadding">Parent Task:</label>
+                <input class="col-xs-12 col-sm-9" type="text" id="view-parenttask-text" value="" name="ParentTaskName"  [(ngModel)]="filterModel.ParentTaskName" (change)="applyFilter(filterModel.ParentTaskName,'ParentTask')"/>
+              </div>
+          </div>
+          <br />
+          <div class="row">    
+              <!-- <div class="col-sm-3 col-xs-12">
+                <label class="col-xs-12 col-sm-5 nopadding">Priority From:</label>
+              
+                <mat-form-field [formGroup]="showTaskForm">
+                  <input #datePicker matInput [matDatepicker]="priorityFrom" formControlName="priorityFrom" placeholder="Date" >
+                  <mat-datepicker-toggle matSuffix [for]="priorityFrom">
+                  </mat-datepicker-toggle>
+                  <mat-datepicker #priorityFrom></mat-datepicker>
+                </mat-form-field>
+              </div>
+
+              <div class="col-sm-3 col-xs-12">
+                <label class="col-xs-12 col-sm-5 nopadding">Priority To:</label>
+
+                <mat-form-field [formGroup]="showTaskForm">
+                  <input #datePicker matInput [matDatepicker]="priorityTo" formControlName="priorityTo" placeholder="Date" >
+                  <mat-datepicker-toggle matSuffix [for]="priorityTo">
+                  </mat-datepicker-toggle>
+                  <mat-datepicker #priorityTo></mat-datepicker>
+                </mat-form-field>
+              </div> -->
+              <div class="col-sm-6 col-xs-12">
+                <label class="col-xs-12 col-sm-3 nopadding">Priority:</label>
+                <input class="col-xs-12 col-sm-9" type="text" id="view-priority-text" value="" name="Priority" [(ngModel)]="filterModel.Priority" (change)="applyFilter(filterModel.Priority,'Priority')"/>
+              </div>
+              <div class="col-sm-3 col-xs-12">
+                <label class="col-xs-12 col-sm-5 nopadding">Start Date:</label>
+                <mat-form-field >
+                  <input #datePicker matInput [matDatepicker]="startDate" name="startDate" placeholder="Date" [(ngModel)]="filterModel.StartDate" (change)="applyFilter(filterModel.StartDate,'StartDate')">
+                  <mat-datepicker-toggle matSuffix [for]="startDate">
+                  </mat-datepicker-toggle>
+                  <mat-datepicker #startDate></mat-datepicker>
+                </mat-form-field>
+              </div>
+              <div class="col-sm-3 col-xs-12">
+                <label class="col-xs-12 col-sm-5 nopadding">End Date:</label>
+                <mat-form-field >
+                  <input #datePicker matInput [matDatepicker]="endDate" name="endDate" placeholder="Date" [(ngModel)]="filterModel.EndDate" (change)="applyFilter(filterModel.EndDate,'EndDate')">
+                  <mat-datepicker-toggle matSuffix [for]="endDate">
+                  </mat-datepicker-toggle>
+                  <mat-datepicker #endDate></mat-datepicker>
+                </mat-form-field>
+              </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <input class="col-xs-12 col-sm-9 btn-brown btn" type="button" id="view-applyFilter-button" value="Apply"  (click)="applyFilter()"  />
+            </div>
+            <div class="col-md-6">
+              <input class="col-xs-12 col-sm-9 btn-brown btn" type="button" id="view-reset-button" value="Reset"   (click)="resetFilter()"/>
+            </div>
+
+          </div>
+          <hr class="dotted-line" />
+        </form>
+
+<br />
+
+<br />
+      <div *ngIf="taskList">
+        
+        <div class="task-card-main" *ngFor="let task of taskList;let i = index">
+            <div class="row">
+                <div class="col-sm-6"> <!-- First Half-->
+                   <div class="row"> 
+
+                      <div class="col-sm-6 task-card">
+                        <div class="">
+                          <h4>Task</h4>
+                          <div class="task-box" >
+                              <p class="align-center">{{task.Task}}</p>
+                          </div> 
+                        </div>  
+                      </div>
+                      <div class="col-sm-6 parent-card">
+                        <div class="">
+                          <h4>Parent</h4>
+                          <div class="task-box">
+                              <p class="align-center">{{task.ParentTask}}</p>
+                          </div> 
+                        </div>  
+                      </div> 
+
+                   </div>  
+                </div>
+
+                <div class="col-xs-12 col-sm-6" >
+                  <div class="col-md-6 col-sm-12">  
+                      <div class="col-sm-4 col-xs-6">  
+                        <div class="priority-disp">
+                          <h4>Priority</h4>
+                          <p>{{task.Priority}}</p>
+                        </div> 
+                      </div>
+                      <div class="col-sm-4 col-xs-6">  
+                        <div class="priority-disp">
+                          <h4>Start</h4>
+                          <p>{{task.StartDate | date : 'shortDate'}}</p>
+                        </div> 
+                      </div>
+                      <div class="col-sm-4 col-xs-12">  
+                        <div class="priority-disp">
+                          <h4>End</h4>
+                          <p>{{task.EndDate | date : 'shortDate'}}</p>
+                        </div> 
+                      </div>
+                  </div>
+
+                  <div class="col-md-6 col-sm-12 button-slot">
+                    <div class="col-sm-6 col-xs-6">  
+                      <button class="btn btn-outline-white btn-md" (click)="editTask(i)">Edit</button>
+                    </div> 
+                    <div class="col-sm-6 col-xs-6">  
+                      <button class="btn btn-outline-white btn-md" (click)="endTask(i)">End Task</button>
+                    </div> 
+                  </div>
+
+                </div>
+            </div>  
+        </div> 
+      </div>
+      </div>
+  </div> 

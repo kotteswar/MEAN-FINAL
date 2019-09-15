@@ -1,0 +1,75 @@
+
+<!-- New Form-->
+    <div class="container">
+        <h2 style="text-align: center;">ADD USER</h2>
+	<div class="form-container">
+      <!-- Example row of columns -->
+<!-- 	 <form class="task-manager-form"> -->
+  <form class="new-task-form" [formGroup]="createUserForm" (ngSubmit)="onSubmit()">
+
+    <div class="form-group row">
+        <label for="new-task" class="col-sm-2 col-form-label">First Name</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control-text" id="firstName" formControlName="firstName">
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="staticEmail" class="col-sm-2 col-form-label">Last Name</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control-text" id="lastName" formControlName="lastName">
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="staticEmail" class="col-sm-2 col-form-label">Employee ID</label>
+        <div class="col-sm-10">
+        <input type="text" class="form-control-text" id="employeeId" formControlName="employeeId">
+        </div>
+    </div>
+	  
+
+	 <div class="form-group row">
+		<label for="staticEmail" class="col-sm-2 col-form-label"></label>
+		  <div class="col-sm-6">
+			<button type="submit" class="btn btn-primary">Add User</button> 
+      <span class="btn btn-default margin-20-left" (click)="resetForm()">Reset</span>
+		</div>
+	  </div> 
+	  
+  </form>
+
+
+
+	<!-- </form> -->
+  </div>
+  <div *ngIf="userList" > 
+  <div class="col-sm-8 user-list-block" *ngFor="let user of userList;let i = index">
+  <div class="col-sm-6">
+    <h4>{{user.FirstName}}</h4>
+    <h4>{{user.LastName}}</h4>
+    <h4>{{user.EmployeeId}}</h4>
+  </div>
+  <div class="col-sm-2">
+    <span class="btn btn-primary" (click)="editUser(i)">Edit</span>
+  <br />
+    <span class="btn btn-warning" (click)="endUser(i)">Delete</span>
+  </div>
+</div>
+</div>
+
+
+</div>
+
+
+
+   <!-- /container -->  
+
+
+
+
+<!-- 
+Copyright Google LLC. All Rights Reserved.
+Use of this source code is governed by an MIT-style license that
+can be found in the LICENSE file at http://angular.io/license
+-->

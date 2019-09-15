@@ -1,0 +1,22 @@
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+
+const facilitySchema = new Schema({
+
+    Name: { type: String, unique: true, required: true },
+    CurrentAddress: {
+        Street: String,
+        City: String,
+        State: String,
+        Zipcode: String
+    },
+    ContactNumber: { type: String, required: true },
+    FromHours: { type: String, default: false },
+    ToHours: { type: String, default: false },
+    Active: { type: Boolean, default: true },
+    CreatedDate: { type: Date, default: Date.now },
+    UpdatedDate: { type: Date, default: Date.now }
+})
+
+// Export the model
+module.exports = mongoose.model('Facility', facilitySchema);

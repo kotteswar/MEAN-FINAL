@@ -1,0 +1,109 @@
+const User = require('../model/user.model')
+const constants = require('../config/constants')
+const jwt = require('jsonwebtoken');
+
+
+//Simple version, without validation or sanitation
+exports.users = function (req, res) {
+    User.find({}, function (err, users) {
+        if (err) res.send(err);
+        res.send(users);
+    })
+    
+};
+exports.user_login = function (req, res) {
+
+    User.findOne({ Username : req.body.username ,
+        Password :  req.body.password}, function (err, user) {
+        if (err) res.send(err);
+        if (!user) {errorHandler(res,"Error Occured");}
+        // create a token
+        var token = jwt.sign({ username: user.Username }, constants.secret, {
+        expiresIn: 3600 // expires in 1 hour
+      });
+        res.status(200).send({ auth: true, token: token });        
+    })    
+};
+
+
+
+exports.user_details = function (req, res) {
+    User.findById(req.params.id, function (err, user) {
+        if (err) res.send(err);
+        res.send(user);
+    })
+    
+};
+exports.user_update = function (req, res) {
+
+    let user =
+        {            
+            Username : req.body.username ,
+            Password :  req.body.password,
+            FirstName: req.body.firstname,
+            LastName: req.body.lastname,
+            EmailAddress : req.body.email,
+            Gender : req.body.gender,
+            DOB : req.body.dob,
+            Phone : req.body.phone,
+            EmergencyContact : req.body.emergencycontact,
+            CurrentAddress :{
+                FlatNo : req.body.Current_Address.flatno,
+                Address1:req.body.Current_Address.address1,
+                Address2:req.body.Current_Address.address2,
+                Zipcode : req.body.Current_Address.zipcode
+            }
+        };
+    
+      User.findOneAndUpdate({_id: req.params.id}, user, function(err, user) {
+        if (err) {
+          res.send(err);
+        }
+        res.send(user);
+      });
+   
+};
+
+exports.user_delete = function (req, res) {
+    User.findOneAndDelete(req.params.id, function (err) {
+        if (err) res.send(err);
+        res.send('Deleted successfully!');
+    })
+};
+
+exports.user_create = function (req, res) {
+    let user = new User(
+        {
+            Username : req.body.username ,
+            Password :  req.body.password,
+            FirstName: req.body.firstname,
+            LastName: req.body.lastname,
+            EmailAddress : req.body.email,
+            Gender : req.body.gender,
+            DOB : req.body.dob,
+            Phone : req.body.phone,            
+            EmergencyContact : req.body.emergencycontact,
+            CurrentAddress :{
+                FlatNo : req.body.Current_Address.flatno,
+                Address1:req.body.Current_Address.address1,
+                Address2:req.body.Current_Address.address2,
+                Zipcode : req.body.Current_Address.zipcode
+            }
+        }
+    );
+    user.save(function (err) {
+        if (err) {
+            res.send(err)
+        }
+        res.send('User Created successfully')
+    })
+
+
+};
+
+function errorHandler(res, msg){
+    return res.status(403).send({ 
+        success: false, 
+        message: msg 
+    });
+}

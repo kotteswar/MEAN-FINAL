@@ -1,0 +1,11 @@
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+
+const specialtySchema = new Schema({
+    Specialty : {type: String, unique:true, required:true },
+    Active: {type: Boolean, default: true},
+    CreatedDate: { type: Date, default: Date.now },
+    UpdatedDate: { type: Date, default: Date.now }
+});
+
+module.exports = mongoose.model('Specialty', specialtySchema);

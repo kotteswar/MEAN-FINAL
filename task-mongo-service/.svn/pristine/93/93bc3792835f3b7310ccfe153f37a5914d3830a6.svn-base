@@ -1,0 +1,82 @@
+const Facility = require('../model/facility.model');
+const constants = require('../config/constants');
+
+exports.facilities = function (req, res) {
+    Facility.find({}, function (err, facilities) {
+        if (err) res.send(err);
+        res.send(facilities);
+    })
+};
+
+exports.facility_create = function(req, res){
+    let facility = new Facility({
+        Name: req.body.Name,
+        ContactNumber: req.body.ContactNumber,
+        FromHours: req.body.FromHours,
+        ToHours: req.body.ToHours,
+        Address:{
+            Street: req.body.CurrentAddress.Street,
+            City: req.body.CurrentAddress.City,
+            State: req.body.CurrentAddress.State,
+            Zipcode: req.body.CurrentAddress.Sipcode 
+        }
+    })
+
+    facility.save(function (err) {
+        if (err) {            
+            res.send(err)
+        }
+        else {
+            return res.status(200).send({
+                success: true
+            });
+        }
+    })
+}
+
+exports.facility_update = function(req, res){
+    let facility = {
+        Name: req.body.Name,
+        ContactNumber: req.body.ContactNumber,
+        FromHours: req.body.FromHours,
+        ToHours: req.body.ToHours,
+        Address:{
+            Street: req.body.CurrentAddress.Street,
+            City: req.body.CurrentAddress.City,
+            State: req.body.CurrentAddress.State,
+            Zipcode: req.body.CurrentAddress.Sipcode 
+        }
+    };
+
+    Facility.findOneAndUpdate({ _id: req.params.id }, facility, function (err, facility) {
+        if (err) {            
+            res.send(err)
+        }
+        if (!facility) { errorHandler(res, "Facility Not Found"); }
+        else {
+            return res.status(200).send({
+                success: true
+            });
+        }
+    })
+}
+
+exports.facility_delete = function(req, res){
+    let facility = {
+        Active: false
+    }
+    Facility.findOneAndUpdate({_id: req.params.id}, facility, function (err, facility) {
+        if (err) res.send(err);
+        if (!facility) { errorHandler(res, "facility Not Found"); }
+        else {
+            res.send('Deleted successfully!');
+        }
+    })
+}
+
+function errorHandler(res, msg) {
+    return res.status(403).send({
+        success: false,
+        message: msg
+    });
+}

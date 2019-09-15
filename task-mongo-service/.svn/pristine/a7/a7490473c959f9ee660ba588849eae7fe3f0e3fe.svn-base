@@ -1,0 +1,11 @@
+var express = require('express')
+var router = express.Router();
+var cors = require('cors');
+
+router.use(cors());
+router.use('/users', require('./user.router'));
+router.use('/specialty', require('./specialty.router'));
+router.use('/facility', require('./facility.router'));
+router.use('/insurance', require('./insurance.router'));
+
+module.exports = router;

@@ -1,0 +1,65 @@
+const Specialty = require('../model/specialty.model');
+const constants = require('../config/constants');
+
+exports.specialties = function (req, res) {
+    Specialty.find({}, function (err, users) {
+        if (err) res.send(err);
+        res.send(users);
+    })
+
+};
+
+exports.specialty_create = function(req, res){
+    const specialty = new Specialty({
+        Specialty: req.body.specialty
+    })
+
+    specialty.save(function (err) {
+        if (err) {            
+            res.send(err)
+        }
+        else {
+            return res.status(200).send({
+                success: true
+            });
+        }
+    })
+}
+
+exports.specialty_update = function(req, res){
+    let specialty = {
+        Specialty: req.body.specialty
+    };
+
+    Specialty.findOneAndUpdate({ _id: req.params.id }, specialty, function (err, specialty) {
+        if (err) {            
+            res.send(err)
+        }
+        if (!specialty) { errorHandler(res, "Specialty Not Found"); }
+        else {
+            return res.status(200).send({
+                success: true
+            });
+        }
+    })
+}
+
+exports.specialty_delete = function(req, res){
+    let specialty = {
+        Active: false
+    }
+    Specialty.findOneAndUpdate({_id: req.params.id}, specialty, function (err, specialty) {
+        if (err) res.send(err);
+        if (!specialty) { errorHandler(res, "Specialty Not Found"); }
+        else {
+            res.send('Deleted successfully!');
+        }
+    })
+}
+
+function errorHandler(res, msg) {
+    return res.status(403).send({
+        success: false,
+        message: msg
+    });
+}

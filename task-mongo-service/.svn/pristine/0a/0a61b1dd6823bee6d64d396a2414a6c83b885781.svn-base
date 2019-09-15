@@ -1,0 +1,11 @@
+const express = require('express');
+const router = express.Router();
+const facility_controller = require('../controller/facility.controller');
+const middleware = require('../config/middleware');
+
+router.get('/', middleware.tokenValidation, facility_controller.facilities);
+router.post('/create', middleware.tokenValidation, facility_controller.facility_create);
+router.put('/:id/update', middleware.tokenValidation, facility_controller.facility_update);
+router.post('/:id/delete', middleware.tokenValidation, facility_controller.facility_delete);
+
+module.exports = router;
