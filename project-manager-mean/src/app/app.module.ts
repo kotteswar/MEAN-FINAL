@@ -14,6 +14,9 @@ import {DemoMaterialModule} from '../material-module';
 import { HttpClientModule} from '@angular/common/http';
 import { AddUserComponent } from './users/add-user/add-user.component';
 import { UpdateUserComponent } from './users/update-user/update-user.component';  
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { OrderModule } from 'ngx-order-pipe';
+import { CreateProjectComponent } from './project/create-project/create-project.component';
 
 //import { MatFormFieldModule } from '@angular/material';
 //import { MatInputModule, MatDatepickerModule, MatNativeDateModule } from '@angular/material';
@@ -27,7 +30,8 @@ import { UpdateUserComponent } from './users/update-user/update-user.component';
     ShowTaskComponent,
     DatepickerComponent,
     AddUserComponent,
-    UpdateUserComponent
+    UpdateUserComponent,
+    CreateProjectComponent,
   ],
   imports: [
     BrowserModule,
@@ -38,6 +42,8 @@ import { UpdateUserComponent } from './users/update-user/update-user.component';
     MatFormFieldModule,
     DemoMaterialModule,
      HttpClientModule,
+    Ng2SearchPipeModule,
+    OrderModule
     
   ],
   providers: [ ],

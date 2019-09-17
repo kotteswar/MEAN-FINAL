@@ -58,7 +58,9 @@ exports.appuser_delete = function(req, res){
         if (err) res.send(err);
         if (!appuser) { errorHandler(res, "Appuser Not Found"); }
         else {
-            res.send('Deleted successfully!');
+            return res.status(200).send({
+                success: true
+            });
         }
     })
 }

@@ -4,6 +4,7 @@ import { FormBuilder } from '@angular/forms';
 import { Validators } from '@angular/forms';
 import { FormArray } from '@angular/forms';
 
+
 import {MongoapiService} from '../../services/mongoapi.service'
 
 import {Router} from '@angular/router';
@@ -24,6 +25,18 @@ export class AddUserComponent implements OnInit {
 
   userList:any;
   originalUserList:any;
+  userSearch:any;
+
+    order: string = 'info.name';
+    reverse: boolean = false;
+
+  setOrder(value: string) {
+    if (this.order === value) {
+      this.reverse = !this.reverse;
+    }
+
+    this.order = value;
+  }
 
   getUserList() {
     debugger;
@@ -37,18 +50,20 @@ export class AddUserComponent implements OnInit {
           console.log(this.userList);
           this.originalUserList = data;
         } else {
-          console.log(" Get Task List Error");
+          console.log(" User list fetch error");
         }
       },
       error => {
-        console.log(" Get Task List Error");
+        console.log(" User list fetch error");
         //this.redirect();
       });
   }
 
   editUser(index: any) {
     debugger
-    var id = this.userList[index]["_id"];
+    //var id = this.userList[index]["_id"];
+    var id = index;
+    
     this.router.navigate(['/updateuser'], {
       queryParams: {
         id: id
@@ -58,11 +73,12 @@ export class AddUserComponent implements OnInit {
 
   endUser(index: any) {
     debugger;
-    var id = this.userList[index]["_id"];
+    var id = index;
     var obj = {
       id: id
     };
     this.service.DeleteUser(obj).subscribe(data => {
+      debugger
       if (data) {
         console.log(data);
         this.getUserList();
@@ -70,7 +86,8 @@ export class AddUserComponent implements OnInit {
         console.log("Delete error");
       }
     }, error => {
-      console.log(" Get Task List Error");
+      debugger
+      console.log(" Deleted but data not fetched");
       //this.redirect();
     });
   }

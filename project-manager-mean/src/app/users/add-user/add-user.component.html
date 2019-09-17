@@ -43,17 +43,34 @@
 
 	<!-- </form> -->
   </div>
-  <div *ngIf="userList" > 
-  <div class="col-sm-8 user-list-block" *ngFor="let user of userList;let i = index">
-  <div class="col-sm-6">
-    <h4>{{user.FirstName}}</h4>
-    <h4>{{user.LastName}}</h4>
-    <h4>{{user.EmployeeId}}</h4>
+  <div *ngIf="userList" class="user-list-container"> 
+    <div class="container nopadding">
+      <div class="col-sm-8 filter-container">
+        <div class="col-sm-4 nopadding">
+          <input class="search-box" placeholder="Search..."  type="text" [(ngModel)]="userSearch" autocomplete="off" /> 
+        </div>
+        <div class="col-sm-3">
+          <label>Sort: </label>
+          <button class="btn btn-outline-white" (click)="setOrder('FirstName')">Firstname</button>
+        </div>
+        <div class="col-sm-3">
+          <button class="btn btn-outline-white" (click)="setOrder('LastName')">Lastname</button>
+        </div>
+        <div class="col-sm-2">
+          <button class="btn btn-outline-white" (click)="setOrder('EmployeeId')">Employee Id</button>
+        </div>
+      </div>
+    </div>
+  <div class="col-sm-8 user-list-block" *ngFor="let user of userList | filter:userSearch | orderBy: order:reverse:'case-insensitive'; let i = index">
+  <div class="col-sm-6 margintop20">
+    <p>First Name: <span class="user-detail">{{user.FirstName}}</span></p>
+    <p>Last Name: <span class="user-detail">{{user.LastName}}</span></p>
+    <p>Employee Id: <span class="user-detail">{{user.EmployeeId}}</span></p>
   </div>
   <div class="col-sm-2">
-    <span class="btn btn-primary" (click)="editUser(i)">Edit</span>
+    <button class="btn btn-outline-white" (click)="editUser(user._id)">Edit</button>
   <br />
-    <span class="btn btn-warning" (click)="endUser(i)">Delete</span>
+    <button class="btn btn-outline-white" (click)="endUser(user._id)">Delete</button>
   </div>
 </div>
 </div>
