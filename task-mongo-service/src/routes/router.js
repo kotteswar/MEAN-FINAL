@@ -12,5 +12,6 @@ router.use(cors());
 router.use('/users', require('./user.router'));
 router.use('/task', require('./task.router'));
 router.use('/appuser', require('./appuser.router'));
+router.use('/project', require('./project.router'));
 
 module.exports = router;

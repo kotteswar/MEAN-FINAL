@@ -23,9 +23,9 @@ export class CreateProjectComponent implements OnInit {
     }
   }
 newProjectForm = this.fb.group({
-    newProject: ['', Validators.required],
+    project: ['', Validators.required],
     priority: ['',Validators.required],
-    parentTask: ['',Validators.required],
+    manager: ['',Validators.required],
     startDate: ['',Validators.required],
     endDate: ['',Validators.required]
   });
@@ -37,14 +37,6 @@ newProjectForm = this.fb.group({
   constructor(public router: Router,private fb: FormBuilder, public service : MongoapiService) { }
 
 
-  createNewTask() {
-    this.newProjectForm.patchValue({
-      firstName: 'Nancy',
-      address: {
-        street: '123 Drew Street'
-      }
-    });
-  }
   goToListPage(){
   this.router.navigate(["/showtask"]);
 }
@@ -55,17 +47,17 @@ newProjectForm = this.fb.group({
   onSubmit() {
     debugger;
     // TODO: Use EventEmitter with form value
-    this.createTask();
+    this.createNewProject();
    
     console.warn(this.newProjectForm.value);
   }
 
-  public createTask() {
+  public createNewProject() {
   debugger; 
  let    obj={
 	 "Project" : this.newProjectForm.value.newProject,
     "Priority" : this.newProjectForm.value.priority,
-    "ParentTask": this.newProjectForm.value.parentTask,
+    "Manager": this.newProjectForm.value.manager,
     "StartDate": this.newProjectForm.value.startDate,
     "EndDate": this.newProjectForm.value.endDate
 } 
@@ -73,10 +65,11 @@ newProjectForm = this.fb.group({
 this.service.login({username:'kotte@outlook.com',password:'India$123'}).subscribe(user => {
   debugger;
   if(user){
-                this.service.saveForm(obj).subscribe(data=> {
+                this.service.createProject(obj).subscribe(data=> {
             debugger;
           if (data) { 
-          this.router.navigate(["/showtask"]);
+            console.log("Test User");
+          //this.router.navigate(["/showtask"]);
           // this.nav.setRoot('HomePage');
           //this.presentAlert("You logic is success.","Alert");
           console.log(data);

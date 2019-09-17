@@ -144,6 +144,50 @@ DeleteUser(obj : any) {
     console.log(data);
     return data;
     }));
-    }
+  }
+  
+// Create Project
+
+createProject(obj : any) {
+return this.http.post<any>(this.mongoApiUrl+`project/create`, obj,this.jwt())
+.pipe(map(data=> {
+debugger;
+console.log(data);
+return data;
+}));
+}
+
+// Delete Project
+
+DeleteProject(obj : any) {
+  return this.http.post<any>(this.mongoApiUrl+"project/"+obj.id+"/delete",obj,this.jwt())
+  .pipe(map(data=> {
+  console.log(data);
+  return data;
+  }));
+  }
+
+// Update Project 
+
+UpdateProject(obj : any) {
+  return this.http.put<any>(this.mongoApiUrl+`project/`+obj.id+`/update`, obj,this.jwt())
+  .pipe(map(data=> {
+  debugger;
+  console.log(data);
+  return data;
+  }));
+}
+
+//Get Project
+
+GetProjectList() {
+return this.http.get<any>(this.mongoApiUrl+`projects`,this.jwt())
+.pipe(map(data=> {
+console.log(data);
+return data;
+}));
+}
+
+
 
 }
