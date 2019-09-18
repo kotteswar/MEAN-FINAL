@@ -6,6 +6,7 @@ import { ShowTaskComponent } from './show-task/show-task.component';
 import { AddUserComponent } from './users/add-user/add-user.component';
 import { UpdateUserComponent } from './users/update-user/update-user.component';
 import { CreateProjectComponent } from './project/create-project/create-project.component';
+import { UpdateProjectComponent } from './project/update-project/update-project.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'createtask', pathMatch: 'full' },
@@ -15,6 +16,7 @@ const routes: Routes = [
 { path: 'adduser', component:AddUserComponent},
 { path: 'updateuser', component:UpdateUserComponent},
 { path: 'createproject', component:CreateProjectComponent},
+{ path: 'updateproject', component:UpdateProjectComponent},
 // { path: 'product/:id', component: ProductComponent },  
 // { path: 'contact', component: ContactComponent },  
 { path: '**', component:CreateTaskComponent}

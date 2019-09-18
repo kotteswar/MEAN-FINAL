@@ -2,7 +2,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const project = new Schema({
+const projectSchema = new Schema({
     Project : {type: String, unique:true, required:true },
     Priority : {type: Number, unique:true, required:true },
     Manager: {type: String, unique:true, required:true },

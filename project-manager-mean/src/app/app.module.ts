@@ -17,6 +17,7 @@ import { UpdateUserComponent } from './users/update-user/update-user.component';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { OrderModule } from 'ngx-order-pipe';
 import { CreateProjectComponent } from './project/create-project/create-project.component';
+import { UpdateProjectComponent } from './project/update-project/update-project.component';
 
 //import { MatFormFieldModule } from '@angular/material';
 //import { MatInputModule, MatDatepickerModule, MatNativeDateModule } from '@angular/material';
@@ -32,6 +33,7 @@ import { CreateProjectComponent } from './project/create-project/create-project.
     AddUserComponent,
     UpdateUserComponent,
     CreateProjectComponent,
+    UpdateProjectComponent,
   ],
   imports: [
     BrowserModule,

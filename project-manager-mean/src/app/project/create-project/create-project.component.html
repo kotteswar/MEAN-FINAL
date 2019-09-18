@@ -1,14 +1,14 @@
 <div class="container">
-
+  <h2 class="center-text">ADD PROJECT</h2>
 </div>
 <!-- New Form-->
     <div class="container">
 	<div class="form-container">
       <!-- Example row of columns -->
 <!-- 	 <form class="task-manager-form"> -->
-  <form class="new-task-form" [formGroup]="newProjectForm" (ngSubmit)="onSubmit()">
+  <form class="new-task-form" [formGroup]="newProjectForm">
 	  <div class="form-group row">
-		<label for="new-task" class="col-sm-2 col-form-label">Task</label>
+		<label for="new-task" class="col-sm-2 col-form-label">Project</label>
 		<div class="col-sm-10">
             <div class="row">
           <div class="col-sm-10">      
@@ -17,7 +17,7 @@
 
             <div class="col-sm-3 checkbox-style">
                 <section class="example-section">
-                    <mat-checkbox class="example-margin" (click)="toggleCtrState()">Disabled</mat-checkbox>
+                    <mat-checkbox class="example-margin" (click)="toggleCtrState()">Set Start and End Date</mat-checkbox>
                 </section>
             </div>
 
@@ -55,9 +55,17 @@
 	  </div>
 	  
 	  <div class="form-group row">
-		<label for="staticEmail" class="col-sm-2 col-form-label">Parent Task</label>
+		<label for="staticEmail" class="col-sm-2 col-form-label">Manager</label>
 		<div class="col-sm-10">
-		  <input type="text" class="form-control-text" id="new-parent-task" formControlName="manager">
+
+    <mat-form-field class="example-full-width" [formGroup]="newProjectForm">
+      <input type="text" placeholder="Select Manager" aria-label="Number" matInput formControlName="manager" [matAutocomplete]="auto">
+      <mat-autocomplete #auto="matAutocomplete">
+      <mat-option *ngFor="let users of userList" value="{{users.FirstName + ' ' +users.LastName}}">
+      {{users.FirstName}} {{users.LastName}}
+      </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
 		</div>
 	  </div>
 	  
@@ -68,8 +76,8 @@
 	  <div class="form-group row">
 		<label for="staticEmail" class="col-sm-2 col-form-label"></label>
 		  <div class="col-sm-6">
-			<button type="submit" class="btn btn-primary" (click)="createNewProject()">Add Task</button> 
-      <button class="btn btn-default margin-20-left">Reset</button>
+			<button type="submit" class="btn btn-primary" (click)="createNewProject()">Create Project</button> 
+      <button class="btn btn-default margin-20-left" (click)="resetProjectForm()">Reset</button>
 		</div>
 	  </div> 
 	  
@@ -79,6 +87,59 @@
 
 	<!-- </form> -->
 	</div>
+
+
+  <div *ngIf="projectList" class="user-list-container"> 
+    <div class="container nopadding">
+      <div class="col-sm-8 filter-container">
+        <div class="col-sm-12 nopadding">
+          <input class="search-box project-search" placeholder="Search..."  type="text" [(ngModel)]="projectSearch" autocomplete="off" /> 
+        </div>
+        <div class="col-sm-2 margintop20" style="text-align:right;">
+          <label>Sort: </label>
+          
+        </div>
+        <div class="col-sm-10">
+        <div class="col-sm-3">
+        <button class="btn btn-outline-white" (click)="setOrder('StartDate')">Start Date</button>
+        </div>
+        <div class="col-sm-3">
+          <button class="btn btn-outline-white" (click)="setOrder('EndDate')">End Date</button>
+        </div>
+        <div class="col-sm-3">
+          <button class="btn btn-outline-white" (click)="setOrder('Priority')">Priority</button>
+        </div>
+        <div class="col-sm-3">
+          <button class="btn btn-outline-white" (click)="setOrder('EmployeeId')">Completed</button>
+        </div>
+        </div>
+      </div>
+    </div>
+      <div class="col-sm-10 user-list-block" *ngFor="let project of projectList | filter:projectSearch | orderBy: order:reverse:'case-insensitive'; let i = index">
+          <div class="col-sm-4 margintop20">
+          <p>Project: <span class="user-detail">{{project.Project}}</span></p>
+          <p>No of Tasks: <span class="user-detail">placeHolder</span></p>
+          <p>Start Date: <span class="user-detail">{{project.StartDate | date : 'shortDate'}}</span></p>
+          </div>
+          <div class="col-sm-3 margintop20">
+          <p>Completed: <span class="user-detail">Place holder</span></p>
+          <p>End Date: <span class="user-detail">{{project.EndDate | date : 'shortDate'}}</span></p>
+          </div>
+          <div class="col-sm-3">
+            <h4 class="center-text">Priority</h4>
+          <div class="circle">
+          <div class="content">
+          <span>{{project.Priority}}</span>
+          </div>
+          </div>
+          </div>
+          <div class="col-sm-2">
+          <button class="btn btn-outline-white" (click)="editProject(project._id)">Edit</button>
+          <br />
+          <button class="btn btn-outline-white" (click)="endProject(project._id)">Suspend</button>
+          </div>
+      </div>
+  </div>
   </div> <!-- /container -->  
 
 

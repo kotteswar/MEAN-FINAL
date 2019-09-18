@@ -231,6 +231,50 @@ input.search-box::placeholder {
   min-height: 59px;
   padding: 14px;
 }
+#new-project {
+  margin-bottom: 10px;
+}
+.center-text {
+  text-align: center;
+}
+
+
+.circle {
+  position: relative;
+  width: 70px;
+  height: 70px;
+  padding: 5% 0;
+  margin: 1em auto;
+  border-radius: 50%;
+  background: #fff;
+  color: #2d2d2d;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+}
+.content:before {
+  content: '';
+  vertical-align: middle;
+  display: inline-block;
+  width: 0;
+  height: 100%;
+}
+
+.content span {
+  vertical-align: middle;
+  display: inline-block;
+}
+.search-box.project-search {
+  margin-bottom: 10px;
+}
 /* Heading and BG Changes */
 
 /*
@@ -238,3 +282,4 @@ Copyright Google LLC. All Rights Reserved.
 Use of this source code is governed by an MIT-style license that
 can be found in the LICENSE file at http://angular.io/license
 */
+

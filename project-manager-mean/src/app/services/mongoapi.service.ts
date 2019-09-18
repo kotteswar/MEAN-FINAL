@@ -181,7 +181,7 @@ UpdateProject(obj : any) {
 //Get Project
 
 GetProjectList() {
-return this.http.get<any>(this.mongoApiUrl+`projects`,this.jwt())
+return this.http.get<any>(this.mongoApiUrl+`project`,this.jwt())
 .pipe(map(data=> {
 console.log(data);
 return data;
