@@ -16,6 +16,7 @@ import {Router} from '@angular/router';
 export class CreateTaskComponent implements OnInit {
 
 newTaskForm = this.fb.group({
+    project: ['', Validators.required],
     newTask: ['', Validators.required],
     priority: ['',Validators.required],
     parentTask: ['',Validators.required],
@@ -52,20 +53,61 @@ newTaskForm = this.fb.group({
    
     console.warn(this.newTaskForm.value);
   }
+projectList:any;
+userList:any;
+getProjectList() {
+    debugger;
+    this.service.GetProjectList().subscribe(data => {
+        debugger;
+        if (data) {
+          // this.nav.setRoot('HomePage');
+          //this.presentAlert("You logic is success.","Alert");
+          this.projectList = data;
+          console.log(this.projectList);
+        } else {
+          console.log(" User list fetch error");
+        }
+      },
+      error => {
+        console.log(" User list fetch error");
+        //this.redirect();
+      });
+  }
+getUserList() {
+    debugger;
+    this.service.GetUserList().subscribe(data => {
+        debugger;
+        if (data) {
+          // this.nav.setRoot('HomePage');
+          //this.presentAlert("You logic is success.","Alert");
+          this.userList = data;
+          console.log(this.userList);
+        } else {
+          console.log(" User list fetch error");
+        }
+      },
+      error => {
+        console.log(" User list fetch error");
+        //this.redirect();
+      });
+  }
+
 
   public createTask() {
   debugger; 
- let    obj={
-	 "Task" : this.newTaskForm.value.newTask,
-    "Priority" : this.newTaskForm.value.priority,
-    "ParentTask": this.newTaskForm.value.parentTask,
-    "StartDate": this.newTaskForm.value.startDate,
-    "EndDate": this.newTaskForm.value.endDate
+ let obj={
+      "Project" : this.newTaskForm.value.project,
+      "Task" : this.newTaskForm.value.newTask,
+      "Priority" : this.newTaskForm.value.priority,
+      "ParentTask": this.newTaskForm.value.parentTask,
+      "StartDate": this.newTaskForm.value.startDate,
+      "EndDate": this.newTaskForm.value.endDate,
+      "User": this.newTaskForm.value.user
 } 
 
-this.service.login({username:'kotte@outlook.com',password:'India$123'}).subscribe(user => {
+//this.service.login({username:'kotte@outlook.com',password:'India$123'}).subscribe(user => {
   debugger;
-  if(user){
+ // if(user){
                 this.service.saveForm(obj).subscribe(data=> {
             debugger;
           if (data) { 
@@ -82,14 +124,18 @@ this.service.login({username:'kotte@outlook.com',password:'India$123'}).subscrib
             console.log("save error");
           //this.redirect();
           });
-  }
-})
+  //}
+//})
 
 } 
 
 
   ngOnInit() {
-    
+      this.service.login({username:'kotte@outlook.com',password:'India$123'}).subscribe(user => {
+
+          this.getProjectList();
+          this.getUserList();
+        })
   }
 
 }

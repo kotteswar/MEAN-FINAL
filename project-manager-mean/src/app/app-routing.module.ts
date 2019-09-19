@@ -9,7 +9,7 @@ import { CreateProjectComponent } from './project/create-project/create-project.
 import { UpdateProjectComponent } from './project/update-project/update-project.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'createtask', pathMatch: 'full' },
+  { path: '', redirectTo: 'adduser', pathMatch: 'full' },
 { path: 'createtask', component:CreateTaskComponent},
 { path: 'updatetask', component:UpdateTaskComponent},
 { path: 'showtask', component:ShowTaskComponent},

@@ -10,11 +10,13 @@ exports.tasks = function (req, res) {
 
 exports.task_create = function(req, res){
     let task = new Task({
+    Project: req.body.Project,
     Task : req.body.Task,
     Priority : req.body.Priority,
     ParentTask: req.body.ParentTask,
     StartDate: req.body.StartDate,
-    EndDate: req.body.EndDate
+    EndDate: req.body.EndDate,
+    User: req.body.User
     })
 
     task.save(function (err) {
@@ -31,11 +33,13 @@ exports.task_create = function(req, res){
 
 exports.task_update = function(req, res){
     let task = {
+     Project: req.body.Project,
     Task : req.body.Task,
     Priority : req.body.Priority,
     ParentTask: req.body.ParentTask,
     StartDate: req.body.StartDate,
-    EndDate: req.body.EndDate
+    EndDate: req.body.EndDate,
+    User: req.body.User
     };
 
     Task.updateOne({ _id: req.params.id }, task, function (err, task) {
