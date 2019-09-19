@@ -26,34 +26,31 @@ export class ShowTaskComponent implements OnInit {
 
   taskList: any;
   originalTaskList: any;
-  filterModel = new Task(1, 'senthil', 2, "", "", "");
+  taskSearch:any;
+     order: string = '';
+    reverse: boolean = false;
+    setOrder(value: string) {
+    if (this.order === value) {
+      this.reverse = !this.reverse;
+    }
+
+    this.order = value;
+  }
+  
   get aliases() {
     return this.showTaskForm.get('aliases') as FormArray;
   }
 
   constructor(private fb: FormBuilder, public service: MongoapiService, public router: Router, ) {}
 
-
-  createNewTask() {
-    this.showTaskForm.patchValue({
-      firstName: 'Nancy',
-      address: {
-        street: '123 Drew Street'
-      }
-    });
-  }
-
   addAlias() {
     this.aliases.push(this.fb.control(''));
   }
 
-  onSubmit() {
-    // TODO: Use EventEmitter with form value
-    console.warn(this.showTaskForm.value);
-  }
+  
   editTask(index: any) {
     debugger
-    var id = this.taskList[index]["_id"];
+    var id = index;
     this.router.navigate(['/updatetask'], {
       queryParams: {
         id: id
@@ -67,29 +64,25 @@ export class ShowTaskComponent implements OnInit {
 
   endTask(index: any) {
     debugger;
-    var id = this.taskList[index]["_id"];
+    var id = index;
     var obj = {
       id: id
     };
     this.service.DeleteTask(obj).subscribe(data => {
       if (data) {
         console.log(data);
-        location.reload();
         this.getTaskList();
       } else {
         console.log("Delete error");
       }
     }, error => {
-      console.log(" Get Task List Error");
+      console.log(" End Task List Error");
       //this.redirect();
     });
   }
 
   ngOnInit() {
-    this.service.login({
-      username: 'kotte@outlook.com',
-      password: 'India$123'
-    }).subscribe(user => {
+    this.service.login({username:'kotte@outlook.com',password:'India$123'}).subscribe(user => {
       debugger;
       if (user) {
         this.getTaskList();

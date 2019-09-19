@@ -15,13 +15,38 @@ import {Router} from '@angular/router';
 })
 export class CreateTaskComponent implements OnInit {
 
+  startDateCtrl:any;
+  endDateCtrl:any;
+  priorityCtrl:any;
+  parentTaskCtrl:any;
+  userCtrl:any;
+  onlyParentTask:any;
+  toggleCtrState() {
+    if (this.startDateCtrl.disabled) {
+      this.onlyParentTask = false;
+      this.startDateCtrl.enable();
+      this.endDateCtrl.enable();
+      this.priorityCtrl.enable();
+      this.parentTaskCtrl.enable();
+      this.userCtrl.enable();
+    } else {
+      this.onlyParentTask = true;
+      this.startDateCtrl.disable();
+      this.endDateCtrl.disable();
+      this.priorityCtrl.disable();
+      this.parentTaskCtrl.disable();
+      this.userCtrl.disable();
+    }
+  }
+
 newTaskForm = this.fb.group({
     project: ['', Validators.required],
     newTask: ['', Validators.required],
     priority: ['',Validators.required],
     parentTask: ['',Validators.required],
     startDate: ['',Validators.required],
-    endDate: ['',Validators.required]
+    endDate: ['',Validators.required],
+    user: ['',Validators.required]
   });
 
   get aliases() {
@@ -31,14 +56,6 @@ newTaskForm = this.fb.group({
   constructor(public router: Router,private fb: FormBuilder, public service : MongoapiService) { }
 
 
-  createNewTask() {
-    this.newTaskForm.patchValue({
-      firstName: 'Nancy',
-      address: {
-        street: '123 Drew Street'
-      }
-    });
-  }
   goToListPage(){
   this.router.navigate(["/showtask"]);
 }
@@ -46,13 +63,6 @@ newTaskForm = this.fb.group({
     this.aliases.push(this.fb.control(''));
   }
 
-  onSubmit() {
-    debugger;
-    // TODO: Use EventEmitter with form value
-    this.createTask();
-   
-    console.warn(this.newTaskForm.value);
-  }
 projectList:any;
 userList:any;
 getProjectList() {
@@ -92,26 +102,39 @@ getUserList() {
       });
   }
 
+newTaskVal:any;
 
-  public createTask() {
-  debugger; 
- let obj={
-      "Project" : this.newTaskForm.value.project,
-      "Task" : this.newTaskForm.value.newTask,
-      "Priority" : this.newTaskForm.value.priority,
-      "ParentTask": this.newTaskForm.value.parentTask,
-      "StartDate": this.newTaskForm.value.startDate,
-      "EndDate": this.newTaskForm.value.endDate,
-      "User": this.newTaskForm.value.user
-} 
+
+public createNewTask() {
+  debugger
+if(this.onlyParentTask == true){
+    this.newTaskVal={
+        "Project" : this.newTaskForm.value.project,
+        "ParentTask" : this.newTaskForm.value.newTask,
+        "onlyParentTask": this.onlyParentTask
+  } 
+}
+else {
+    this.newTaskVal={
+        "Project" : this.newTaskForm.value.project,
+        "Task" : this.newTaskForm.value.newTask,
+        "Priority" : this.newTaskForm.value.priority,
+        "ParentTask": this.newTaskForm.value.parentTask,
+        "StartDate": this.newTaskForm.value.startDate,
+        "EndDate": this.newTaskForm.value.endDate,
+        "User": this.newTaskForm.value.user,
+        "onlyParentTask": this.onlyParentTask
+  } 
+}
+ 
 
 //this.service.login({username:'kotte@outlook.com',password:'India$123'}).subscribe(user => {
   debugger;
  // if(user){
-                this.service.saveForm(obj).subscribe(data=> {
+                this.service.saveForm(this.newTaskVal).subscribe(data=> {
             debugger;
           if (data) { 
-          this.router.navigate(["/showtask"]);
+          //this.router.navigate(["/showtask"]);
           // this.nav.setRoot('HomePage');
           //this.presentAlert("You logic is success.","Alert");
           console.log(data);
@@ -128,13 +151,39 @@ getUserList() {
 //})
 
 } 
+parentList:any;
+getTask(){
+  this.service.GetTaskList().subscribe(data=> {
+          if (data) { 
+            debugger
+          // this.nav.setRoot('HomePage');
+          //this.presentAlert("You logic is success.","Alert");
+          console.log(data)
+          this.parentList = data;
+          //taskList = 
+          } else {
+            console.log(" Get Task List Error");
+          }
+          },
+          error => {
+            console.log(" Get Task List Error");
+          //this.redirect();
+          });
+}
 
 
   ngOnInit() {
       this.service.login({username:'kotte@outlook.com',password:'India$123'}).subscribe(user => {
-
+      this.startDateCtrl = this.newTaskForm.get('startDate');
+      this.endDateCtrl = this.newTaskForm.get('endDate');
+      this.priorityCtrl = this.newTaskForm.get('priority');
+      this.parentTaskCtrl = this.newTaskForm.get('parentTask');
+      this.userCtrl = this.newTaskForm.get('user');
+    //this.startDateCtrl.disable();
+    //this.endDateCtrl.disable();
           this.getProjectList();
           this.getUserList();
+          this.getTask();
         })
   }
 

@@ -275,6 +275,9 @@ input.search-box::placeholder {
 .search-box.project-search {
   margin-bottom: 10px;
 }
+.listFilter {
+  margin-bottom: 40px;
+}
 /* Heading and BG Changes */
 
 /*

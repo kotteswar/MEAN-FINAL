@@ -16,6 +16,7 @@ exports.task_create = function(req, res){
     ParentTask: req.body.ParentTask,
     StartDate: req.body.StartDate,
     EndDate: req.body.EndDate,
+    onlyParentTask: req.body.onlyParentTask,
     User: req.body.User
     })
 
@@ -39,6 +40,7 @@ exports.task_update = function(req, res){
     ParentTask: req.body.ParentTask,
     StartDate: req.body.StartDate,
     EndDate: req.body.EndDate,
+    onlyParentTask: req.body.onlyParentTask,
     User: req.body.User
     };
 

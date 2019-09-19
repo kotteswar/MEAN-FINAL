@@ -14,16 +14,44 @@ import {Router, ActivatedRoute} from '@angular/router';
 })
 export class UpdateTaskComponent implements OnInit {
 
+  startDateCtrl:any;
+  endDateCtrl:any;
+  priorityCtrl:any;
+  parentTaskCtrl:any;
+  userCtrl:any;
+  onlyParentTask:any;
+
+    toggleCtrState() {
+    if (this.startDateCtrl.disabled) {
+      this.onlyParentTask = false;
+      this.startDateCtrl.enable();
+      this.endDateCtrl.enable();
+      this.priorityCtrl.enable();
+      this.parentTaskCtrl.enable();
+      this.userCtrl.enable();
+    } else {
+      this.onlyParentTask = true;
+      this.startDateCtrl.disable();
+      this.endDateCtrl.disable();
+      this.priorityCtrl.disable();
+      this.parentTaskCtrl.disable();
+      this.userCtrl.disable();
+    }
+  }
+
 updateTaskForm = this.fb.group({
-    newTask: ['', Validators.required],
+    project: ['', Validators.required],
+    updateTask: ['', Validators.required],
     priority: ['',Validators.required],
     parentTask: ['',Validators.required],
     startDate: ['',Validators.required],
-    endDate: ['',Validators.required]
+    endDate: ['',Validators.required],
+    user: ['',Validators.required]
   });
 
 taskList:any;
 id:any;
+userList:any;
   get aliases() {
     return this.updateTaskForm.get('aliases') as FormArray;
   }
@@ -39,7 +67,7 @@ id:any;
  this.getTask();
    }
 
-
+parentList:any;
 getTask(){
   this.service.GetTaskList().subscribe(data=> {
           if (data) { 
@@ -48,8 +76,21 @@ getTask(){
           //this.presentAlert("You logic is success.","Alert");
           console.log(data)
           var curId = this.id;
+          this.parentList = data;
           this.taskList =  data.filter(x=> x._id == curId)[0];
-          console.log(this.taskList);
+          if(this.taskList.onlyParentTask) {
+            this.taskList["Task"] = this.taskList.ParentTask;
+            this.taskList["ParentTask"] = "";
+            this.taskList["User"] = "";
+            
+            this.onlyParentTask = this.taskList.onlyParentTask;
+            this.startDateCtrl.disable();
+            this.endDateCtrl.disable();
+            this.priorityCtrl.disable();
+            this.parentTaskCtrl.disable();
+            this.userCtrl.disable();
+          }
+          //taskList = 
           } else {
             console.log(" Get Task List Error");
           }
@@ -60,42 +101,87 @@ getTask(){
           });
 }
 
-  createNewTask() {
-    this.updateTaskForm.patchValue({
-      firstName: 'Nancy',
-      address: {
-        street: '123 Drew Street'
-      }
-    });
-  }
 
   addAlias() {
     this.aliases.push(this.fb.control(''));
   }
 
-  onSubmit() {
-    // TODO: Use EventEmitter with form value
-    console.warn(this.updateTaskForm.value);
+    getProjectList() {
+    debugger;
+    this.service.GetProjectList().subscribe(data => {
+        debugger;
+        if (data) {
+          // this.nav.setRoot('HomePage');
+          //this.presentAlert("You logic is success.","Alert");
+          this.projectList = data;
+          console.log(this.projectList);
+        } else {
+          console.log(" User list fetch error");
+        }
+      },
+      error => {
+        console.log(" User list fetch error");
+        //this.redirect();
+      });
   }
-       
 
+  getUserList() {
+    debugger;
+    this.service.GetUserList().subscribe(data => {
+        debugger;
+        if (data) {
+          // this.nav.setRoot('HomePage');
+          //this.presentAlert("You logic is success.","Alert");
+          this.userList = data;
+          console.log(this.userList);
+        } else {
+          console.log(" User list fetch error");
+        }
+      },
+      error => {
+        console.log(" User list fetch error");
+        //this.redirect();
+      });
+  }
+
+       
+projectList: any;
+updateTaskVal: any;
   ngOnInit() {
-    
+        this.startDateCtrl = this.updateTaskForm.get('startDate');
+      this.endDateCtrl = this.updateTaskForm.get('endDate');
+      this.priorityCtrl = this.updateTaskForm.get('priority');
+      this.parentTaskCtrl = this.updateTaskForm.get('parentTask');
+      this.userCtrl = this.updateTaskForm.get('user');
+    this.getProjectList();
+    this.getUserList();
   }
   public updateTask() {
-    debugger; 
-   let    obj={
-     "Task" : this.updateTaskForm.value.newTask,
-      "Priority" : this.updateTaskForm.value.priority,
-      "ParentTask": this.updateTaskForm.value.parentTask,
-      "StartDate": this.updateTaskForm.value.startDate,
-      "EndDate": this.updateTaskForm.value.endDate,
-      "id": this.id
-  } 
-  this.service.login({username:'kotte@outlook.com',password:'India$123'}).subscribe(user => {
     debugger;
-    if(user){
-                  this.service.UpdateTask(obj).subscribe(data=> {
+if(this.onlyParentTask == true){
+    this.updateTaskVal={
+        "Project" : this.updateTaskForm.value.project,
+        "ParentTask" : this.updateTaskForm.value.updateTask,
+        "onlyParentTask": this.onlyParentTask,
+        "id": this.id
+  } 
+}
+else {
+    this.updateTaskVal={
+        "Project" : this.updateTaskForm.value.project,
+        "Task" : this.updateTaskForm.value.updateTask,
+        "Priority" : this.updateTaskForm.value.priority,
+        "ParentTask": this.updateTaskForm.value.parentTask,
+        "StartDate": this.updateTaskForm.value.startDate,
+        "EndDate": this.updateTaskForm.value.endDate,
+        "User": this.updateTaskForm.value.user,
+        "onlyParentTask": this.onlyParentTask,
+        "id": this.id
+  } 
+}
+  
+  
+           this.service.UpdateTask(this.updateTaskVal).subscribe(data=> {
               debugger;
             if (data) { 
             this.router.navigate(["/showtask"]);
@@ -111,8 +197,8 @@ getTask(){
               console.log("save error");
             //this.redirect();
             });
-    }
-  })
+  
+ 
   
   } 
 

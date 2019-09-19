@@ -3,13 +3,14 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const taskSchema = new Schema({
-    Project: {type: String, unique:true, required:true },
-    Task : {type: String, unique:true, required:true },
+    Project: {type: String, required:true },
+    Task : {type: String},
     Priority : {type: Number },
-    ParentTask: {type: String, default: ""},
+    ParentTask: {type: String},
     StartDate: { type: Date, default: Date.now },
     EndDate: { type: Date, default: Date.now },
-    User: {type: String, unique:true, required:true },
+    User: {type: String },
+    onlyParentTask: {type: Boolean },
     Active: {type: String, default: true}
 });
 
