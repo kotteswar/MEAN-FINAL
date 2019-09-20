@@ -16,12 +16,15 @@ import {Router} from '@angular/router';
 })
 export class AddUserComponent implements OnInit {
 
+  constructor(public router: Router,private fb: FormBuilder, public service : MongoapiService) { }
+submitted = false;
   createUserForm = this.fb.group({
     firstName: ['', Validators.required],
     lastName: ['',Validators.required],
     employeeId: ['',Validators.required]
   });
 
+get f() { return this.createUserForm.controls; }
 
   userList:any;
   originalUserList:any;
@@ -34,7 +37,6 @@ export class AddUserComponent implements OnInit {
     if (this.order === value) {
       this.reverse = !this.reverse;
     }
-
     this.order = value;
   }
 
@@ -94,11 +96,14 @@ export class AddUserComponent implements OnInit {
 
 
   onSubmit() {
-    debugger;
-    // TODO: Use EventEmitter with form value
-    this.createUser();
-   
-    console.warn(this.createUserForm.value);
+    this.submitted = true;
+      if (this.createUserForm.invalid) {
+            return;
+        }
+        else {
+           this.createUser();
+          }
+  
   }
 
   resetForm() {
@@ -141,8 +146,6 @@ this.service.login({username:'kotte@outlook.com',password:'India$123'}).subscrib
 
 } 
 
-
-    constructor(public router: Router,private fb: FormBuilder, public service : MongoapiService) { }
 
   ngOnInit() {
     this.service.login({username:'kotte@outlook.com',password:'India$123'}).subscribe(user => {

@@ -12,13 +12,16 @@
 		<label for="staticEmail" class="col-sm-2 col-form-label">Project</label>
 		<div class="col-sm-10">
 			<mat-form-field class="example-full-width" [formGroup]="newTaskForm">
-			<input type="text" placeholder="Select Project" aria-label="Number" matInput formControlName="project" [matAutocomplete]="auto">
+			<input type="text" placeholder="Select Project" aria-label="Number" matInput formControlName="project" [matAutocomplete]="auto" [ngClass]="{ 'is-invalid': submitted && f.project.errors }">
 			<mat-autocomplete #auto="matAutocomplete">
 			<mat-option *ngFor="let project of projectList" value="{{project.Project}}">
 			{{project.Project}}
 			</mat-option>
 			</mat-autocomplete>
 			</mat-form-field>
+			<div *ngIf="submitted && f.project.errors" class="invalid-feedback">
+				<div *ngIf="f.project.errors.required">Project is required</div>
+			</div>
 		</div>
 	</div>
 
@@ -27,7 +30,10 @@
 			<label for="new-task" class="col-sm-2 col-form-label">Task</label>
 			<div class="col-sm-10 nopadding">
 				<div class="col-sm-12">
-					<input type="text" class="form-control-text" id="new-task" formControlName="newTask">
+					<input type="text" class="form-control-text" id="new-task" formControlName="newTask" [ngClass]="{ 'is-invalid': submitted && f.newTask.errors }">
+						<div *ngIf="submitted && f.newTask.errors" class="invalid-feedback">
+							<div *ngIf="f.newTask.errors.required">Task is required</div>
+						</div>
 				</div>
 				<div class="col-sm-3 checkbox-style">
 					<section class="example-section">
@@ -40,7 +46,10 @@
 	  <div class="form-group row">
 			<label for="myRange" class="col-sm-2 col-form-label">Priority</label>
 			<div class="col-sm-4">
-				<input type="range" min="1" max="100" value="50" class="slider" id="myRange" formControlName="priority"> <span class="range-value">{{newTaskForm.value.priority}}</span>
+				<input type="range" min="1" max="100" value="50" class="slider" id="myRange" formControlName="priority"> <span class="range-value" [ngClass]="{ 'is-invalid': submitted && f.priority.errors }">{{newTaskForm.value.priority}}</span>
+				<div *ngIf="submitted && f.priority.errors" class="invalid-feedback">
+					<div *ngIf="f.priority.errors.required">Priority is required</div>
+				</div>
 			</div>
 	  </div>
 	  
@@ -48,13 +57,16 @@
 			<label for="userName" class="col-sm-2 col-form-label">Parent Task</label>
 			<div class="col-sm-10">
 				<mat-form-field class="example-full-width" [formGroup]="newTaskForm">
-				<input type="text" placeholder="Select User" aria-label="Number" matInput formControlName="parentTask" [matAutocomplete]="autoTestParent">
+				<input type="text" placeholder="Select User" aria-label="Number" matInput formControlName="parentTask" [matAutocomplete]="autoTestParent" [ngClass]="{ 'is-invalid': submitted && f.parentTask.errors }">
 				<mat-autocomplete #autoTestParent="matAutocomplete">
 				<mat-option *ngFor="let parentTask of parentList" value="{{parentTask.ParentTask}}">
 				{{parentTask.ParentTask}}
 				</mat-option>
 				</mat-autocomplete>
 				</mat-form-field>
+				<div *ngIf="submitted && f.parentTask.errors" class="invalid-feedback">
+					<div *ngIf="f.parentTask.errors.required">Parent Task is required</div>
+				</div>
 			</div>
 		</div>
 	  
@@ -63,11 +75,14 @@
 			<div class="col-sm-3">
 				<div class="input-group input-append date" class="datePicker">	
 					<mat-form-field [formGroup]="newTaskForm">
-												<input #datePicker matInput [matDatepicker]="startDate" formControlName="startDate" placeholder="Date">
-												<mat-datepicker-toggle matSuffix [for]="startDate">
-												</mat-datepicker-toggle>
-												<mat-datepicker #startDate></mat-datepicker>
+						<input #datePicker matInput [matDatepicker]="startDate" formControlName="startDate" placeholder="Date" [ngClass]="{ 'is-invalid': submitted && f.startDate.errors }">
+						<mat-datepicker-toggle matSuffix [for]="startDate">
+						</mat-datepicker-toggle>
+						<mat-datepicker #startDate></mat-datepicker>
 					</mat-form-field>
+				<div *ngIf="submitted && f.startDate.errors" class="invalid-feedback">
+					<div *ngIf="f.startDate.errors.required">Parent Task is required</div>
+				</div>
 				</div>			
 			</div>
 	  </div>
@@ -77,11 +92,14 @@
 		  <div class="col-sm-3">
 		  <div class="input-group input-append date" class="datePicker">
                 <mat-form-field [formGroup]="newTaskForm">
-                  <input #datePicker matInput [matDatepicker]="endDate" formControlName="endDate" placeholder="Date">
+                  <input #datePicker matInput [matDatepicker]="endDate" formControlName="endDate" [min]="newTaskForm.controls.startDate.value" placeholder="Date" [ngClass]="{ 'is-invalid': submitted && f.endDate.errors }">
                   <mat-datepicker-toggle matSuffix [for]="endDate">
                   </mat-datepicker-toggle>
                   <mat-datepicker #endDate></mat-datepicker>
     					</mat-form-field>
+					<div *ngIf="submitted && f.endDate.errors" class="invalid-feedback">
+						<div *ngIf="f.endDate.errors.required">End date is required</div>
+					</div>	
 		</div>
 		</div>
 	  </div> 
@@ -90,20 +108,23 @@
 			<label for="userName" class="col-sm-2 col-form-label">User</label>
 			<div class="col-sm-10">
 				<mat-form-field class="example-full-width" [formGroup]="newTaskForm">
-				<input type="text" placeholder="Select User" aria-label="Number" matInput formControlName="user" [matAutocomplete]="autoTest">
+				<input type="text" placeholder="Select User" aria-label="Number" matInput formControlName="user" [matAutocomplete]="autoTest" [ngClass]="{ 'is-invalid': submitted && f.user.errors }">
 				<mat-autocomplete #autoTest="matAutocomplete">
 				<mat-option *ngFor="let user of userList" value="{{user.FirstName +' '+ user.LastName}}">
 				{{user.FirstName +" "+ user.LastName}}
 				</mat-option>
 				</mat-autocomplete>
 				</mat-form-field>
+				<div *ngIf="submitted && f.user.errors" class="invalid-feedback">
+					<div *ngIf="f.user.errors.required">User is required</div>
+				</div>	
 			</div>
 		</div>
 	  
 	  <div class="form-group row">
 		<label for="staticEmail" class="col-sm-2 col-form-label"></label>
 		  <div class="col-sm-6">
-			<button type="submit" class="btn btn-primary" (click)="createNewTask()">Add Task</button> 
+			<button type="submit" class="btn btn-primary" (click)="submitForm()">Add Task</button> 
       <span class="btn btn-default margin-20-left">Reset</span>
 		</div>
 	  </div> 

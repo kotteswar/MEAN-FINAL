@@ -156,6 +156,20 @@ updateTaskVal: any;
     this.getProjectList();
     this.getUserList();
   }
+  resetForm() {
+    this.updateTaskForm.reset();
+  }
+get f() { return this.updateTaskForm.controls; }
+submitted = false;
+  submitForm() {
+       this.submitted = true;
+      if (this.updateTaskForm.invalid) {
+            return;
+        }
+        else {
+           this.updateTask();
+          }
+  }
   public updateTask() {
     debugger;
 if(this.onlyParentTask == true){

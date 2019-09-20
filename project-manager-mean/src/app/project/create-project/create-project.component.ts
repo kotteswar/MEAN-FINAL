@@ -57,6 +57,18 @@ resetProjectForm() {
   this.newProjectForm.reset();
 }
 
+get f() { return this.newProjectForm.controls; }
+submitted = false;
+  submitForm() {
+       this.submitted = true;
+      if (this.newProjectForm.invalid) {
+            return;
+        }
+        else {
+           this.createNewProject();
+          }
+  }
+
   public createNewProject() {
   debugger; 
  let    obj={
@@ -151,6 +163,27 @@ projectList:any;
       queryParams: {
         id: id
       }
+    });
+  }
+
+endProject(index: any) {
+    debugger;
+    var id = index;
+    var obj = {
+      id: id
+    };
+    this.service.DeleteProject(obj).subscribe(data => {
+      debugger
+      if (data) {
+        console.log(data);
+         this.getProjectList();
+      } else {
+        console.log("Delete error");
+      }
+    }, error => {
+      debugger
+      console.log(" Deleted but data not fetched");
+      //this.redirect();
     });
   }
 

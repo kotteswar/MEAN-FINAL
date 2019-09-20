@@ -12,7 +12,10 @@
 		<div class="col-sm-10">
             <div class="row">
           <div class="col-sm-10">      
-		  <input type="text" class="form-control-text" id="new-project" formControlName="project" style="float: left;">
+		  <input type="text" class="form-control-text" id="new-project" formControlName="project" style="float: left;" [ngClass]="{ 'is-invalid': submitted && f.project.errors }">
+          <div *ngIf="submitted && f.project.errors" class="invalid-feedback">
+          <div *ngIf="f.project.errors.required">Project is required</div>
+          </div>
           </div>
 
             <div class="col-sm-3 checkbox-style">
@@ -24,22 +27,28 @@
             <div class="col-sm-3"> <!-- Start Date -->
                 <div class="input-group input-append date" class="datePicker">	
                     <mat-form-field [formGroup]="newProjectForm">
-                    <input #datePicker matInput [matDatepicker]="startDate" formControlName="startDate" placeholder="Start Date">
+                    <input #datePicker matInput [matDatepicker]="startDate" formControlName="startDate" [(ngModel)]="newProjectForm.startDate" placeholder="Start Date" [ngClass]="{ 'is-invalid': submitted && f.startDate.errors }">
                     <mat-datepicker-toggle matSuffix [for]="startDate">
                     </mat-datepicker-toggle>
                     <mat-datepicker #startDate></mat-datepicker>
                     </mat-form-field>
+                    <div *ngIf="submitted && f.startDate.errors" class="invalid-feedback">
+                      <div *ngIf="f.startDate.errors.required">Start Date is required</div>
+                    </div>
                 </div>			
             </div>
 
             <div class="col-sm-3"> <!-- End Date -->
                 <div class="input-group input-append date" class="datePicker">
                     <mat-form-field [formGroup]="newProjectForm">
-                    <input #datePicker matInput [matDatepicker]="endDate" formControlName="endDate" placeholder="End Date" >
+                    <input #datePicker matInput [matDatepicker]="endDate" formControlName="endDate" placeholder="End Date" [min]="newProjectForm.controls.startDate.value"  [ngClass]="{ 'is-invalid': submitted && f.endDate.errors }">
                     <mat-datepicker-toggle matSuffix [for]="endDate">
                     </mat-datepicker-toggle>
                     <mat-datepicker #endDate></mat-datepicker>
                     </mat-form-field>
+                    <div *ngIf="submitted && f.endDate.errors" class="invalid-feedback">
+                      <div *ngIf="f.endDate.errors.required">End Date is required</div>
+                    </div>
                 </div>
             </div>
 
@@ -50,7 +59,10 @@
 	  <div class="form-group row">
 		<label for="myRange" class="col-sm-2 col-form-label">Priority</label>
 		<div class="col-sm-4">
-		  <input type="range" min="1" max="100" value="50" class="slider" id="myRange" formControlName="priority"> <span class="range-value">{{newProjectForm.value.priority}}</span>
+		  <input type="range" min="1" max="100" value="50" class="slider" id="myRange" formControlName="priority" [ngClass]="{ 'is-invalid': submitted && f.priority.errors }"> <span class="range-value">{{newProjectForm.value.priority}}</span>
+        <div *ngIf="submitted && f.priority.errors" class="invalid-feedback">
+        <div *ngIf="f.priority.errors.required">Priority is required</div>
+        </div>
 		</div>
 	  </div>
 	  
@@ -59,13 +71,16 @@
 		<div class="col-sm-10">
 
     <mat-form-field class="example-full-width" [formGroup]="newProjectForm">
-      <input type="text" placeholder="Select Manager" aria-label="Number" matInput formControlName="manager" [matAutocomplete]="auto">
+      <input type="text" placeholder="Select Manager" aria-label="Number" matInput formControlName="manager" [matAutocomplete]="auto" [ngClass]="{ 'is-invalid': submitted && f.manager.errors }">
       <mat-autocomplete #auto="matAutocomplete">
       <mat-option *ngFor="let users of userList" value="{{users.FirstName + ' ' +users.LastName}}">
       {{users.FirstName}} {{users.LastName}}
       </mat-option>
       </mat-autocomplete>
     </mat-form-field>
+    <div *ngIf="submitted && f.manager.errors" class="invalid-feedback">
+      <div *ngIf="f.manager.errors.required">Manager is required</div>
+    </div>
 		</div>
 	  </div>
 	  
@@ -76,7 +91,7 @@
 	  <div class="form-group row">
 		<label for="staticEmail" class="col-sm-2 col-form-label"></label>
 		  <div class="col-sm-6">
-			<button type="submit" class="btn btn-primary" (click)="createNewProject()">Create Project</button> 
+			<button type="submit" class="btn btn-primary" (click)="submitForm()">Create Project</button> 
       <button class="btn btn-default margin-20-left" (click)="resetProjectForm()">Reset</button>
 		</div>
 	  </div> 

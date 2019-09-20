@@ -59,9 +59,20 @@ export class UpdateUserComponent implements OnInit {
     
   ngOnInit() {
   }
-
-
-  
+  resetForm() {
+    this.updateUserForm.reset();
+  }
+get f() { return this.updateUserForm.controls; }
+submitted = false;
+  submitForm() {
+       this.submitted = true;
+      if (this.updateUserForm.invalid) {
+            return;
+        }
+        else {
+           this.updateUser();
+          }
+  }
   public updateUser() {
     debugger; 
    let    obj={

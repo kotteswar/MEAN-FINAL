@@ -49,6 +49,18 @@ newTaskForm = this.fb.group({
     user: ['',Validators.required]
   });
 
+get f() { return this.newTaskForm.controls; }
+submitted = false;
+  submitForm() {
+       this.submitted = true;
+      if (this.newTaskForm.invalid) {
+            return;
+        }
+        else {
+           this.createNewTask();
+          }
+  }
+
   get aliases() {
     return this.newTaskForm.get('aliases') as FormArray;
   }

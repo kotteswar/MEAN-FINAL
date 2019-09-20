@@ -84,8 +84,17 @@ resetProjectForm() {
   this.updateProjectForm.reset();
 }
 
-
-
+get f() { return this.updateProjectForm.controls; }
+submitted = false;
+  submitForm() {
+       this.submitted = true;
+      if (this.updateProjectForm.invalid) {
+            return;
+        }
+        else {
+           this.updateProject();
+          }
+  }
   public updateProject() {
     debugger; 
    let    obj={

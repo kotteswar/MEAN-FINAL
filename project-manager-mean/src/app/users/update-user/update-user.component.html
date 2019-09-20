@@ -10,21 +10,30 @@
     <div class="form-group row">
         <label for="new-task" class="col-sm-2 col-form-label">First Name</label>
         <div class="col-sm-10">
-            <input type="text" class="form-control-text" id="firstName" formControlName="firstName" [(ngModel)]="userList.FirstName">
+            <input type="text" class="form-control-text" id="firstName" formControlName="firstName" [(ngModel)]="userList.FirstName" [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }">
+            <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
+                            <div *ngIf="f.firstName.errors.required">First Name is required</div>
+          </div>
         </div>
     </div>
 
     <div class="form-group row">
         <label for="staticEmail" class="col-sm-2 col-form-label">Last Name</label>
         <div class="col-sm-10">
-            <input type="text" class="form-control-text" id="lastName" formControlName="lastName" [(ngModel)]="userList.LastName">
+            <input type="text" class="form-control-text" id="lastName" formControlName="lastName" [(ngModel)]="userList.LastName" [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }">
+            <div *ngIf="submitted && f.lastName.errors" class="invalid-feedback">
+                            <div *ngIf="f.lastName.errors.required">Last Name is required</div>
+          </div>
         </div>
     </div>
 
     <div class="form-group row">
         <label for="staticEmail" class="col-sm-2 col-form-label">Employee ID</label>
         <div class="col-sm-10">
-        <input type="text" class="form-control-text" id="employeeId" formControlName="employeeId" [(ngModel)]="userList.EmployeeId">
+        <input type="text" class="form-control-text" id="employeeId" formControlName="employeeId" [(ngModel)]="userList.EmployeeId" [ngClass]="{ 'is-invalid': submitted && f.employeeId.errors }">
+         <div *ngIf="submitted && f.employeeId.errors" class="invalid-feedback">
+                            <div *ngIf="f.employeeId.errors.required">Last Name is required</div>
+         </div>
         </div>
     </div>
 	  
@@ -32,7 +41,7 @@
 	 <div class="form-group row">
 		<label for="staticEmail" class="col-sm-2 col-form-label"></label>
 		  <div class="col-sm-6">
-			<button type="submit" class="btn btn-primary" (click)="updateUser()">Update User</button> 
+			<button type="submit" class="btn btn-primary" (click)="submitForm()">Update User</button> 
       <span class="btn btn-default margin-20-left" (click)="resetForm()">Reset</span>
 		</div>
 	  </div> 
