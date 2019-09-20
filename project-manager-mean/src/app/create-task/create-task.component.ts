@@ -110,8 +110,16 @@ public createNewTask() {
 if(this.onlyParentTask == true){
     this.newTaskVal={
         "Project" : this.newTaskForm.value.project,
+        "Task" : "",
         "ParentTask" : this.newTaskForm.value.newTask,
-        "onlyParentTask": this.onlyParentTask
+        "onlyParentTask": this.onlyParentTask,
+
+        "Priority" : 0,
+    
+    "StartDate": "",
+    "EndDate": "",
+    
+    "User": ""
   } 
 }
 else {
@@ -138,7 +146,7 @@ else {
           // this.nav.setRoot('HomePage');
           //this.presentAlert("You logic is success.","Alert");
           console.log(data);
-
+        this.router.navigate(['/showtask']);
           } else {
             console.log("save error");
           }

@@ -48,7 +48,7 @@
 			<label for="userName" class="col-sm-2 col-form-label">Parent Task</label>
 			<div class="col-sm-10">
 				<mat-form-field class="example-full-width" [formGroup]="newTaskForm">
-				<input type="text" placeholder="Select User" aria-label="Number" matInput formControlName="user" [matAutocomplete]="autoTestParent">
+				<input type="text" placeholder="Select User" aria-label="Number" matInput formControlName="parentTask" [matAutocomplete]="autoTestParent">
 				<mat-autocomplete #autoTestParent="matAutocomplete">
 				<mat-option *ngFor="let parentTask of parentList" value="{{parentTask.ParentTask}}">
 				{{parentTask.ParentTask}}
@@ -104,7 +104,7 @@
 		<label for="staticEmail" class="col-sm-2 col-form-label"></label>
 		  <div class="col-sm-6">
 			<button type="submit" class="btn btn-primary" (click)="createNewTask()">Add Task</button> 
-      <button class="btn btn-default margin-20-left">Reset</button>
+      <span class="btn btn-default margin-20-left">Reset</span>
 		</div>
 	  </div> 
 	  

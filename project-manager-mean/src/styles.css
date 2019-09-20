@@ -278,6 +278,15 @@ input.search-box::placeholder {
 .listFilter {
   margin-bottom: 40px;
 }
+.show-task-form label {
+  color: rgba(223,190,106,0.7);
+}
+.show-task-form .mat-form-field-infix, .show-task-form label#mat-form-field-label-1{
+  color: rgba(223,190,106,0.7);
+}
+.show-task-form .mat-form-field-appearance-legacy .mat-form-field-underline {
+  background-color: rgba(223,190,106,0.7);
+}
 /* Heading and BG Changes */
 
 /*

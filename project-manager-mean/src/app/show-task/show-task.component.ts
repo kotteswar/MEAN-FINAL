@@ -21,7 +21,8 @@ export class ShowTaskComponent implements OnInit {
     startDate: ['', Validators.required],
     endDate: ['', Validators.required],
     priorityFrom: ['', Validators.required],
-    priorityTo: ['', Validators.required]
+    priorityTo: ['', Validators.required],
+    taskSearch: ['', Validators.required]
   });
 
   taskList: any;

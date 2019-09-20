@@ -3,33 +3,51 @@
           <button class="btn btn-brown float-right" (click)="goToCreatePage()" >Go to Create page</button>
  </div> 
   <div class="container">  
-    <div class="col-sm-12">
+     <form class="new-task-form" [formGroup]="showTaskForm"  *ngIf="taskList">
+    <div class="col-sm-12 nopadding">
           <div class="show-task-form"  *ngIf="taskList">
-            <div class="col-sm-8 filter-container">
-              <div class="col-sm-12 nopadding">
-                <input class="search-box project-search" placeholder="Search..."  type="text" [(ngModel)]="taskSearch" autocomplete="off" /> 
+            <div class="col-sm-12 filter-container">
+              <div class="col-sm-4 nopadding">
+                <!-- <input class="search-box project-search" placeholder="Search..."  type="text" [(ngModel)]="taskSearch" autocomplete="off" /> -->
+
+
+                <mat-form-field class="example-full-width" [formGroup]="showTaskForm">
+                <input type="text" placeholder="Select User" aria-label="Number" matInput [(ngModel)]="taskSearch" formControlName="taskSearch" [matAutocomplete]="autoTest">
+                <mat-autocomplete #autoTest="matAutocomplete">
+                <mat-option *ngFor="let task of taskList" value="{{task.Project}}">
+                {{task.Project}}
+                </mat-option>
+                </mat-autocomplete>
+                </mat-form-field>
               </div>
-              <div class="col-sm-2 margintop20" style="text-align:right;">
-                <label>Sort: </label>
-              </div>
-              <div class="col-sm-10">
-                <div class="col-sm-3">
+              <div class="col-sm-8">
+                <div class="col-sm-12">
+                  <div class="col-sm-1 margintop20" style="text-align:right;">
+                  <label>Sort: </label>
+                  </div>
+                  <div class="col-sm-3">
                   <button class="btn btn-outline-white" (click)="setOrder('StartDate')">Start Date</button>
-                </div>
-                <div class="col-sm-3">
+                  </div>
+                  <div class="col-sm-3">
                   <button class="btn btn-outline-white" (click)="setOrder('EndDate')">End Date</button>
-                </div>
-                <div class="col-sm-3">
+                  </div>
+                  <div class="col-sm-3">
                   <button class="btn btn-outline-white" (click)="setOrder('Priority')">Priority</button>
-                </div>
-                <div class="col-sm-3">
+                  </div>
+                  <div class="col-sm-2">
                   <button class="btn btn-outline-white" (click)="setOrder('EmployeeId')">Completed</button>
+                  </div>
                 </div>
               </div>
             </div>
         </div>
     </div>
-      <div class="view-task">
+     </form>
+ 
+  </div> 
+
+  <div class="container">
+          <div class="view-task">
       <div *ngIf="taskList">
         
         <div class="task-card-main" *ngFor="let task of taskList | filter:taskSearch | orderBy: order:reverse:'case-insensitive';let i = index">
@@ -41,7 +59,7 @@
                         <div class="">
                           <h4>Task</h4>
                           <div class="task-box" >
-                              <p class="align-center">{{task.Task}}</p>
+                              <p class="align-center" *ngIf="task.Task">{{task.Task}}</p>
                           </div> 
                         </div>  
                       </div>
@@ -49,7 +67,7 @@
                         <div class="">
                           <h4>Parent</h4>
                           <div class="task-box">
-                              <p class="align-center">{{task.ParentTask}}</p>
+                              <p class="align-center" *ngIf="task.ParentTask">{{task.ParentTask}}</p>
                           </div> 
                         </div>  
                       </div> 
@@ -62,19 +80,19 @@
                       <div class="col-sm-4 col-xs-6">  
                         <div class="priority-disp">
                           <h4>Priority</h4>
-                          <p>{{task.Priority}}</p>
+                          <p *ngIf="task.Priority">{{task.Priority}}</p>
                         </div> 
                       </div>
                       <div class="col-sm-4 col-xs-6">  
                         <div class="priority-disp">
                           <h4>Start</h4>
-                          <p>{{task.StartDate | date : 'shortDate'}}</p>
+                          <p *ngIf="task.StartDate">{{task.StartDate | date : 'shortDate'}}</p>
                         </div> 
                       </div>
                       <div class="col-sm-4 col-xs-12">  
                         <div class="priority-disp">
                           <h4>End</h4>
-                          <p>{{task.EndDate | date : 'shortDate'}}</p>
+                          <p *ngIf="task.EndDate">{{task.EndDate | date : 'shortDate'}}</p>
                         </div> 
                       </div>
                   </div>
@@ -92,5 +110,4 @@
             </div>  
         </div> 
       </div>
- 
-  </div> 
+  </div>

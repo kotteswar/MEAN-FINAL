@@ -68,7 +68,9 @@ exports.task_delete = function(req, res){
         if (err) res.send(err);
         if (!task) { errorHandler(res, "task Not Found"); }
         else {
-            res.send('Deleted successfully!');
+             return res.status(200).send({
+                success: true
+            });
         }
     })
 }

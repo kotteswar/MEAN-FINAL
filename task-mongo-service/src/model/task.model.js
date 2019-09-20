@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const taskSchema = new Schema({
-    Project: {type: String, required:true },
+    Project: {type: String },
     Task : {type: String},
     Priority : {type: Number },
     ParentTask: {type: String},
