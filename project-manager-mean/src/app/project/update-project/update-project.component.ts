@@ -22,7 +22,7 @@ export class UpdateProjectComponent implements OnInit {
 
   toggleCtrState() {
     
-    debugger
+     
     if (this.startDateCtrl.disabled) {
       this.startDateCtrl.enable();
       this.endDateCtrl.enable();
@@ -59,13 +59,11 @@ updateProjectForm = this.fb.group({
        getProject(){
         this.service.GetProjectList().subscribe(data=> {
                 if (data) { 
-                  debugger
+                   
                 // this.nav.setRoot('HomePage');
                 //this.presentAlert("You logic is success.","Alert");
-                console.log(data)
                 var curId = this.id;
                 this.projectList =  data.filter(x=> x._id == curId)[0];
-                console.log(this.projectList);
                 } else {
                   console.log(" Get Task List Error");
                 }
@@ -96,7 +94,7 @@ submitted = false;
           }
   }
   public updateProject() {
-    debugger; 
+      
    let    obj={
       "Project" : this.updateProjectForm.value.project,
     "Priority" : this.updateProjectForm.value.priority,
@@ -106,16 +104,12 @@ submitted = false;
       "id": this.id
   } 
   //this.service.login({username:'kotte@outlook.com',password:'India$123'}).subscribe(user => {
-    debugger;
+     
    // if(user){
                   this.service.UpdateProject(obj).subscribe(data=> {
-              debugger;
+               
             if (data) { 
             this.router.navigate(["/createproject"]);
-            // this.nav.setRoot('HomePage');
-            //this.presentAlert("You logic is success.","Alert");
-            console.log(data);
-  
             } else {
               console.log("save error");
             }
@@ -139,14 +133,13 @@ submitted = false;
   }
 
   getUserList() {
-    debugger;
+     
     this.service.GetUserList().subscribe(data => {
-        debugger;
+         
         if (data) {
           // this.nav.setRoot('HomePage');
           //this.presentAlert("You logic is success.","Alert");
           this.userList = data;
-          console.log(this.userList);
         } else {
           console.log(" User list fetch error");
         }

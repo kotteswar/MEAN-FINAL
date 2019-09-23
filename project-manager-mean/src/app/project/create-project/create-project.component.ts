@@ -19,7 +19,7 @@ export class CreateProjectComponent implements OnInit {
 
   toggleCtrState() {
     
-    debugger
+     
     if (this.startDateCtrl.disabled) {
       this.startDateCtrl.enable();
       this.endDateCtrl.enable();
@@ -70,7 +70,7 @@ submitted = false;
   }
 
   public createNewProject() {
-  debugger; 
+   ; 
  let    obj={
 	 "Project" : this.newProjectForm.value.project,
     "Priority" : this.newProjectForm.value.priority,
@@ -80,16 +80,13 @@ submitted = false;
 } 
 
 //this.service.login({username:'kotte@outlook.com',password:'India$123'}).subscribe(user => {
-  debugger;
+   
   //if(user){
                 this.service.createProject(obj).subscribe(data=> {
-            debugger;
+             
           if (data) { 
-            console.log("Test User");
-          //this.router.navigate(["/showtask"]);
-          // this.nav.setRoot('HomePage');
-          //this.presentAlert("You logic is success.","Alert");
-          console.log(data);
+            
+          
           this.newProjectForm.reset();
             this.getProjectList();
           } else {
@@ -120,14 +117,11 @@ projectList:any;
     this.order = value;
   }
   getProjectList() {
-    debugger;
+     
     this.service.GetProjectList().subscribe(data => {
-        debugger;
+         
         if (data) {
-          // this.nav.setRoot('HomePage');
-          //this.presentAlert("You logic is success.","Alert");
           this.projectList = data;
-          console.log(this.projectList);
         } else {
           console.log(" User list fetch error");
         }
@@ -138,14 +132,11 @@ projectList:any;
       });
   }
   getUserList() {
-    debugger;
+     
     this.service.GetUserList().subscribe(data => {
-        debugger;
+         
         if (data) {
-          // this.nav.setRoot('HomePage');
-          //this.presentAlert("You logic is success.","Alert");
           this.userList = data;
-          console.log(this.userList);
         } else {
           console.log(" User list fetch error");
         }
@@ -167,21 +158,21 @@ projectList:any;
   }
 
 endProject(index: any) {
-    debugger;
+     
     var id = index;
     var obj = {
       id: id
     };
     this.service.DeleteProject(obj).subscribe(data => {
-      debugger
+       
       if (data) {
-        console.log(data);
+        
          this.getProjectList();
       } else {
         console.log("Delete error");
       }
     }, error => {
-      debugger
+       
       console.log(" Deleted but data not fetched");
       //this.redirect();
     });

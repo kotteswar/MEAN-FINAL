@@ -78,16 +78,15 @@ submitted = false;
 projectList:any;
 userList:any;
 getProjectList() {
-    debugger;
+     
     this.service.GetProjectList().subscribe(data => {
-        debugger;
+         
         if (data) {
           // this.nav.setRoot('HomePage');
           //this.presentAlert("You logic is success.","Alert");
           this.projectList = data;
-          console.log(this.projectList);
         } else {
-          console.log(" User list fetch error");
+          
         }
       },
       error => {
@@ -96,21 +95,18 @@ getProjectList() {
       });
   }
 getUserList() {
-    debugger;
+     
     this.service.GetUserList().subscribe(data => {
-        debugger;
+         
         if (data) {
-          // this.nav.setRoot('HomePage');
-          //this.presentAlert("You logic is success.","Alert");
+
           this.userList = data;
-          console.log(this.userList);
         } else {
           console.log(" User list fetch error");
         }
       },
       error => {
         console.log(" User list fetch error");
-        //this.redirect();
       });
   }
 
@@ -118,7 +114,7 @@ newTaskVal:any;
 
 
 public createNewTask() {
-  debugger
+   
 if(this.onlyParentTask == true){
     this.newTaskVal={
         "Project" : this.newTaskForm.value.project,
@@ -149,15 +145,11 @@ else {
  
 
 //this.service.login({username:'kotte@outlook.com',password:'India$123'}).subscribe(user => {
-  debugger;
+   
  // if(user){
                 this.service.saveForm(this.newTaskVal).subscribe(data=> {
-            debugger;
+             
           if (data) { 
-          //this.router.navigate(["/showtask"]);
-          // this.nav.setRoot('HomePage');
-          //this.presentAlert("You logic is success.","Alert");
-          console.log(data);
         this.router.navigate(['/showtask']);
           } else {
             console.log("save error");
@@ -165,7 +157,6 @@ else {
           },
           error => {
             console.log("save error");
-          //this.redirect();
           });
   //}
 //})
@@ -175,19 +166,13 @@ parentList:any;
 getTask(){
   this.service.GetTaskList().subscribe(data=> {
           if (data) { 
-            debugger
-          // this.nav.setRoot('HomePage');
-          //this.presentAlert("You logic is success.","Alert");
-          console.log(data)
           this.parentList = data;
-          //taskList = 
           } else {
             console.log(" Get Task List Error");
           }
           },
           error => {
             console.log(" Get Task List Error");
-          //this.redirect();
           });
 }
 
