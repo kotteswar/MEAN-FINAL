@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
-import { Validators } from '@angular/forms';
-import { FormArray } from '@angular/forms';
-import {Observable} from 'rxjs';
-import {MongoapiService} from '../../services/mongoapi.service';
-import {Router, ActivatedRoute} from '@angular/router';
+import { FormBuilder } from '@angular/forms';
+import { Validators } from '@angular/forms';
+import { FormArray } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { MongoapiService } from '../../services/mongoapi.service';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-update-project',
@@ -12,17 +12,17 @@ import {Router, ActivatedRoute} from '@angular/router';
   styleUrls: ['./update-project.component.css']
 })
 export class UpdateProjectComponent implements OnInit {
-  userList:any;
-  projectList:any;
-  projectSearch:any;
+  userList: any;
+  projectList: any;
+  projectSearch: any;
   order: string = '';
   reverse: boolean = false;
-  startDateCtrl:any;
-  endDateCtrl:any;
+  startDateCtrl: any;
+  endDateCtrl: any;
 
   toggleCtrState() {
-    
-     
+
+
     if (this.startDateCtrl.disabled) {
       this.startDateCtrl.enable();
       this.endDateCtrl.enable();
@@ -31,97 +31,86 @@ export class UpdateProjectComponent implements OnInit {
       this.endDateCtrl.disable();
     }
   }
-  
-updateProjectForm = this.fb.group({
+
+  updateProjectForm = this.fb.group({
     project: ['', Validators.required],
-    priority: ['',Validators.required],
-    manager: ['',Validators.required],
-    startDate: ['',Validators.required],
-    endDate: ['',Validators.required]
+    priority: ['', Validators.required],
+    manager: ['', Validators.required],
+    startDate: ['', Validators.required],
+    endDate: ['', Validators.required]
   });
 
   get aliases() {
     return this.updateProjectForm.get('aliases') as FormArray;
   }
 
-  id:any;
-  constructor(private fb: FormBuilder, public  service: MongoapiService,private activatedRoute : ActivatedRoute , public router : Router) {
+  id: any;
+  constructor(private fb: FormBuilder, public service: MongoapiService, private activatedRoute: ActivatedRoute, public router: Router) {
+    this.activatedRoute.queryParams.subscribe(params => {
+      this.id = params['id'];
 
-
-        console.log('Called Constructor');
-        this.activatedRoute.queryParams.subscribe(params => {
-            this.id = params['id'];
-    
-      });
-  this.getProject()
-       }
-
-       getProject(){
-        this.service.GetProjectList().subscribe(data=> {
-                if (data) { 
-                   
-                // this.nav.setRoot('HomePage');
-                //this.presentAlert("You logic is success.","Alert");
-                var curId = this.id;
-                this.projectList =  data.filter(x=> x._id == curId)[0];
-                } else {
-                  console.log(" Get Task List Error");
-                }
-                },
-                error => {
-                  console.log(" Get Task List Error");
-                //this.redirect();
-                });
-      }
-
-
-
-
-
-resetProjectForm() {
-  this.updateProjectForm.reset();
-}
-
-get f() { return this.updateProjectForm.controls; }
-submitted = false;
-  submitForm() {
-       this.submitted = true;
-      if (this.updateProjectForm.invalid) {
-            return;
-        }
-        else {
-           this.updateProject();
-          }
+    });
+    this.getProject()
   }
-  public updateProject() {
-      
-   let    obj={
-      "Project" : this.updateProjectForm.value.project,
-    "Priority" : this.updateProjectForm.value.priority,
-    "Manager": this.updateProjectForm.value.manager,
-    "StartDate": this.updateProjectForm.value.startDate,
-    "EndDate": this.updateProjectForm.value.endDate,
+
+  getProject() {
+    this.service.GetProjectList().subscribe(data => {
+      if (data) {
+        var curId = this.id;
+        this.projectList = data.filter(x => x._id == curId)[0];
+      } else {
+        //error log
+      }
+    },
+      error => {
+        //error log
+      });
+  }
+
+
+
+
+
+  resetProjectForm() {
+    this.updateProjectForm.reset();
+  }
+
+  get f() { return this.updateProjectForm.controls; }
+  submitted = false;
+  submitForm() {
+    this.submitted = true;
+    if (this.updateProjectForm.invalid) {
+      return;
+    }
+    else {
+      this.updateProject();
+    }
+  }
+  public updateProject() {
+
+    let obj = {
+      "Project": this.updateProjectForm.value.project,
+      "Priority": this.updateProjectForm.value.priority,
+      "Manager": this.updateProjectForm.value.manager,
+      "StartDate": this.updateProjectForm.value.startDate,
+      "EndDate": this.updateProjectForm.value.endDate,
       "id": this.id
-  } 
-  //this.service.login({username:'kotte@outlook.com',password:'India$123'}).subscribe(user => {
-     
-   // if(user){
-                  this.service.UpdateProject(obj).subscribe(data=> {
-               
-            if (data) { 
-            this.router.navigate(["/createproject"]);
-            } else {
-              console.log("save error");
-            }
-            },
-            error => {
-              console.log("save error");
-            //this.redirect();
-            });
-    //}
-  //})
-  
-} 
+    }
+
+    this.service.UpdateProject(obj).subscribe(data => {
+
+      if (data) {
+        this.router.navigate(["/createproject"]);
+      } else {
+        //error log
+      }
+    },
+      error => {
+        //error log
+      });
+
+
+  }
 
 
   setOrder(value: string) {
@@ -133,20 +122,17 @@ submitted = false;
   }
 
   getUserList() {
-     
+
     this.service.GetUserList().subscribe(data => {
-         
-        if (data) {
-          // this.nav.setRoot('HomePage');
-          //this.presentAlert("You logic is success.","Alert");
-          this.userList = data;
-        } else {
-          console.log(" User list fetch error");
-        }
-      },
+
+      if (data) {
+        this.userList = data;
+      } else {
+        //error log
+      }
+    },
       error => {
-        console.log(" User list fetch error");
-        //this.redirect();
+        //error log
       });
   }
 
@@ -156,11 +142,11 @@ submitted = false;
 
     this.startDateCtrl = this.updateProjectForm.get('startDate');
     this.endDateCtrl = this.updateProjectForm.get('endDate');
-     this.startDateCtrl.disable();
-      this.endDateCtrl.disable();
-    this.service.login({username:'kotte@outlook.com',password:'India$123'}).subscribe(user => {
-        this.getUserList(); 
-      });
+    this.startDateCtrl.disable();
+    this.endDateCtrl.disable();
+    this.service.login({ username: 'kotte@outlook.com', password: 'India$123' }).subscribe(user => {
+      this.getUserList();
+    });
 
   }
 }

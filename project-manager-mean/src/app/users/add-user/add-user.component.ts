@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import {Task} from '../../task';
-import { FormBuilder } from '@angular/forms';
-import { Validators } from '@angular/forms';
-import { FormArray } from '@angular/forms';
+import { Task } from '../../task';
+import { FormBuilder } from '@angular/forms';
+import { Validators } from '@angular/forms';
+import { FormArray } from '@angular/forms';
 
 
-import {MongoapiService} from '../../services/mongoapi.service'
+import { MongoapiService } from '../../services/mongoapi.service'
 
-import {Router} from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-user',
@@ -16,22 +16,22 @@ import {Router} from '@angular/router';
 })
 export class AddUserComponent implements OnInit {
 
-  constructor(public router: Router,private fb: FormBuilder, public service : MongoapiService) { }
-submitted = false;
+  constructor(public router: Router, private fb: FormBuilder, public service: MongoapiService) { }
+  submitted = false;
   createUserForm = this.fb.group({
     firstName: ['', Validators.required],
-    lastName: ['',Validators.required],
-    employeeId: ['',Validators.required]
+    lastName: ['', Validators.required],
+    employeeId: ['', Validators.required]
   });
 
-get f() { return this.createUserForm.controls; }
+  get f() { return this.createUserForm.controls; }
 
-  userList:any;
-  originalUserList:any;
-  userSearch:any;
+  userList: any;
+  originalUserList: any;
+  userSearch: any;
 
-    order: string = 'info.name';
-    reverse: boolean = false;
+  order: string = 'info.name';
+  reverse: boolean = false;
 
   setOrder(value: string) {
     if (this.order === value) {
@@ -41,31 +41,23 @@ get f() { return this.createUserForm.controls; }
   }
 
   getUserList() {
-    debugger;
+
     this.service.GetUserList().subscribe(data => {
-        debugger;
-        if (data) {
-          // this.nav.setRoot('HomePage');
-          //this.presentAlert("You logic is success.","Alert");
-          console.log(data);
-          this.userList = data;
-          console.log(this.userList);
-          this.originalUserList = data;
-        } else {
-          console.log(" User list fetch error");
-        }
-      },
+
+      if (data) {
+        this.userList = data;
+        this.originalUserList = data;
+      } else {
+        //error log
+      }
+    },
       error => {
-        console.log(" User list fetch error");
-        //this.redirect();
+        //error log
       });
   }
 
   editUser(index: any) {
-    debugger
-    //var id = this.userList[index]["_id"];
     var id = index;
-    
     this.router.navigate(['/updateuser'], {
       queryParams: {
         id: id
@@ -74,87 +66,78 @@ get f() { return this.createUserForm.controls; }
   }
 
   endUser(index: any) {
-    debugger;
     var id = index;
     var obj = {
       id: id
     };
     this.service.DeleteUser(obj).subscribe(data => {
-      debugger
+
       if (data) {
-        console.log(data);
         this.getUserList();
       } else {
-        console.log("Delete error");
+        //error log
       }
     }, error => {
-      debugger
-      console.log(" Deleted but data not fetched");
-      //this.redirect();
+      //error log
     });
   }
 
 
   onSubmit() {
     this.submitted = true;
-      if (this.createUserForm.invalid) {
-            return;
-        }
-        else {
-           this.createUser();
-          }
-  
+    if (this.createUserForm.invalid) {
+      return;
+    }
+    else {
+      this.createUser();
+    }
+
   }
 
   resetForm() {
     this.createUserForm.reset();
   }
 
-public createUser() {
-  debugger; 
- let    obj={
-	 "FirstName" : this.createUserForm.value.firstName,
-    "LastName" : this.createUserForm.value.lastName,
-    "EmployeeId": this.createUserForm.value.employeeId
-} 
+  public createUser() {
+
+    let obj = {
+      "FirstName": this.createUserForm.value.firstName,
+      "LastName": this.createUserForm.value.lastName,
+      "EmployeeId": this.createUserForm.value.employeeId
+    }
 
 
 
-this.service.login({username:'kotte@outlook.com',password:'India$123'}).subscribe(user => {
-  debugger;
-  if(user){
-                this.service.createAppUser(obj).subscribe(data=> {
-            debugger;
-          if (data) { 
-          //this.router.navigate(["/showtask"]);
-          // this.nav.setRoot('HomePage');
-          //this.presentAlert("You logic is success.","Alert");
-          console.log(data);
-          this.createUserForm.reset();
+    this.service.login({ username: 'kotte@outlook.com', password: 'India$123' }).subscribe(user => {
 
-          this.getUserList();
-          } else {
-            console.log("save error");
+      if (user) {
+        this.service.createAppUser(obj).subscribe(data => {
+
+          if (data) {
+            this.createUserForm.reset();
+
+            this.getUserList();
+          } else {
+            //error log
           }
-          },
-          error => {
-            console.log("save error");
-          //this.redirect();
+        },
+          error => {
+            //error log
           });
-  }
-})
+      }
+    })
 
-} 
+  }
 
 
   ngOnInit() {
-    this.service.login({username:'kotte@outlook.com',password:'India$123'}).subscribe(user => {
-    this.getUserList();
-  })
-    
+    this.service.login({ username: 'kotte@outlook.com', password: 'India$123' }).subscribe(user => {
+      this.getUserList();
+    })
+
   }
 
-  
+
 
 
 

@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import {Task} from '../task';
-import { FormBuilder } from '@angular/forms';
-import { Validators } from '@angular/forms';
-import { FormArray } from '@angular/forms';
+import { Task } from '../task';
+import { FormBuilder } from '@angular/forms';
+import { Validators } from '@angular/forms';
+import { FormArray } from '@angular/forms';
 
-import {MongoapiService} from '../services/mongoapi.service'
+import { MongoapiService } from '../services/mongoapi.service'
 
-import {Router} from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-task',
@@ -15,12 +15,12 @@ import {Router} from '@angular/router';
 })
 export class CreateTaskComponent implements OnInit {
 
-  startDateCtrl:any;
-  endDateCtrl:any;
-  priorityCtrl:any;
-  parentTaskCtrl:any;
-  userCtrl:any;
-  onlyParentTask:any;
+  startDateCtrl: any;
+  endDateCtrl: any;
+  priorityCtrl: any;
+  parentTaskCtrl: any;
+  userCtrl: any;
+  onlyParentTask: any;
   toggleCtrState() {
     if (this.startDateCtrl.disabled) {
       this.onlyParentTask = false;
@@ -39,157 +39,149 @@ export class CreateTaskComponent implements OnInit {
     }
   }
 
-newTaskForm = this.fb.group({
+  newTaskForm = this.fb.group({
     project: ['', Validators.required],
     newTask: ['', Validators.required],
-    priority: ['',Validators.required],
-    parentTask: ['',Validators.required],
-    startDate: ['',Validators.required],
-    endDate: ['',Validators.required],
-    user: ['',Validators.required]
+    priority: ['', Validators.required],
+    parentTask: ['', Validators.required],
+    startDate: ['', Validators.required],
+    endDate: ['', Validators.required],
+    user: ['', Validators.required]
   });
 
-get f() { return this.newTaskForm.controls; }
-submitted = false;
+  get f() { return this.newTaskForm.controls; }
+  submitted = false;
   submitForm() {
-       this.submitted = true;
-      if (this.newTaskForm.invalid) {
-            return;
-        }
-        else {
-           this.createNewTask();
-          }
+    this.submitted = true;
+    if (this.newTaskForm.invalid) {
+      return;
+    }
+    else {
+      this.createNewTask();
+    }
   }
 
   get aliases() {
     return this.newTaskForm.get('aliases') as FormArray;
   }
 
-  constructor(public router: Router,private fb: FormBuilder, public service : MongoapiService) { }
+  constructor(public router: Router, private fb: FormBuilder, public service: MongoapiService) { }
 
 
-  goToListPage(){
-  this.router.navigate(["/showtask"]);
-}
+  goToListPage() {
+    this.router.navigate(["/showtask"]);
+  }
   addAlias() {
     this.aliases.push(this.fb.control(''));
   }
 
-projectList:any;
-userList:any;
-getProjectList() {
-     
+  projectList: any;
+  userList: any;
+  getProjectList() {
+
     this.service.GetProjectList().subscribe(data => {
-         
-        if (data) {
-          // this.nav.setRoot('HomePage');
-          //this.presentAlert("You logic is success.","Alert");
-          this.projectList = data;
-        } else {
-          
-        }
-      },
+
+      if (data) {
+        this.projectList = data;
+      } else {
+
+      }
+    },
       error => {
-        console.log(" User list fetch error");
-        //this.redirect();
+        //error log
       });
   }
-getUserList() {
-     
+  getUserList() {
+
     this.service.GetUserList().subscribe(data => {
-         
-        if (data) {
 
-          this.userList = data;
-        } else {
-          console.log(" User list fetch error");
-        }
-      },
+      if (data) {
+
+        this.userList = data;
+      } else {
+        //error log
+      }
+    },
       error => {
-        console.log(" User list fetch error");
+        //error log
       });
   }
 
-newTaskVal:any;
+  newTaskVal: any;
 
 
-public createNewTask() {
-   
-if(this.onlyParentTask == true){
-    this.newTaskVal={
-        "Project" : this.newTaskForm.value.project,
-        "Task" : "",
-        "ParentTask" : this.newTaskForm.value.newTask,
+  public createNewTask() {
+
+    if (this.onlyParentTask == true) {
+      this.newTaskVal = {
+        "Project": this.newTaskForm.value.project,
+        "Task": "",
+        "ParentTask": this.newTaskForm.value.newTask,
         "onlyParentTask": this.onlyParentTask,
 
-        "Priority" : 0,
-    
-    "StartDate": "",
-    "EndDate": "",
-    
-    "User": ""
-  } 
-}
-else {
-    this.newTaskVal={
-        "Project" : this.newTaskForm.value.project,
-        "Task" : this.newTaskForm.value.newTask,
-        "Priority" : this.newTaskForm.value.priority,
+        "Priority": 0,
+
+        "StartDate": "",
+        "EndDate": "",
+
+        "User": ""
+      }
+    }
+    else {
+      this.newTaskVal = {
+        "Project": this.newTaskForm.value.project,
+        "Task": this.newTaskForm.value.newTask,
+        "Priority": this.newTaskForm.value.priority,
         "ParentTask": this.newTaskForm.value.parentTask,
         "StartDate": this.newTaskForm.value.startDate,
         "EndDate": this.newTaskForm.value.endDate,
         "User": this.newTaskForm.value.user,
         "onlyParentTask": this.onlyParentTask
-  } 
-}
- 
+      }
+    }
 
-//this.service.login({username:'kotte@outlook.com',password:'India$123'}).subscribe(user => {
-   
- // if(user){
-                this.service.saveForm(this.newTaskVal).subscribe(data=> {
-             
-          if (data) { 
+
+
+    this.service.saveForm(this.newTaskVal).subscribe(data => {
+
+      if (data) {
         this.router.navigate(['/showtask']);
-          } else {
-            console.log("save error");
-          }
-          },
-          error => {
-            console.log("save error");
-          });
-  //}
-//})
+      } else {
+        //error log
+      }
+    },
+      error => {
+        //error log
+      });
 
-} 
-parentList:any;
-getTask(){
-  this.service.GetTaskList().subscribe(data=> {
-          if (data) { 
-          this.parentList = data;
-          } else {
-            console.log(" Get Task List Error");
-          }
-          },
-          error => {
-            console.log(" Get Task List Error");
-          });
-}
+
+  }
+  parentList: any;
+  getTask() {
+    this.service.GetTaskList().subscribe(data => {
+      if (data) {
+        this.parentList = data;
+      } else {
+        //error log
+      }
+    },
+      error => {
+        //error log
+      });
+  }
 
 
   ngOnInit() {
-      this.service.login({username:'kotte@outlook.com',password:'India$123'}).subscribe(user => {
+    this.service.login({ username: 'kotte@outlook.com', password: 'India$123' }).subscribe(user => {
       this.startDateCtrl = this.newTaskForm.get('startDate');
       this.endDateCtrl = this.newTaskForm.get('endDate');
       this.priorityCtrl = this.newTaskForm.get('priority');
       this.parentTaskCtrl = this.newTaskForm.get('parentTask');
       this.userCtrl = this.newTaskForm.get('user');
-    //this.startDateCtrl.disable();
-    //this.endDateCtrl.disable();
-          this.getProjectList();
-          this.getUserList();
-          this.getTask();
-        })
+      this.getProjectList();
+      this.getUserList();
+      this.getTask();
+    })
   }
 
 }
