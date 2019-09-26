@@ -9,10 +9,10 @@ router.use(function(req, res, next) {
   next();
 });
 
-router.get('/', middleware.tokenValidation, appuser_controller.appusers);
-router.post('/create', middleware.tokenValidation, appuser_controller.appuser_create);
-router.put('/:id/update', middleware.tokenValidation, appuser_controller.appuser_update);
-router.post('/:id/delete', middleware.tokenValidation, appuser_controller.appuser_delete);
+router.get('/',  appuser_controller.appusers);
+router.post('/create',  appuser_controller.appuser_create);
+router.put('/:id/update',  appuser_controller.appuser_update);
+router.post('/:id/delete',  appuser_controller.appuser_delete);
 
 
 module.exports = router;

@@ -9,10 +9,10 @@ router.use(function (req, res, next) {
   next();
 });
 
-router.get('/', middleware.tokenValidation, task_controller.tasks);
-router.post('/create', middleware.tokenValidation, task_controller.task_create);
-router.put('/:id/update', middleware.tokenValidation, task_controller.task_update);
-router.post('/:id/delete', middleware.tokenValidation, task_controller.task_delete);
+router.get('/', task_controller.tasks);
+router.post('/create', task_controller.task_create);
+router.put('/:id/update', task_controller.task_update);
+router.post('/:id/delete', task_controller.task_delete);
 
 
 module.exports = router;

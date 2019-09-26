@@ -5,6 +5,7 @@ const userSchema = new Schema({
 
   Username: {
     type: String,
+    required: true,
     unique: true
   },
   Password: {
@@ -14,25 +15,25 @@ const userSchema = new Schema({
   },
   FirstName: {
     type: String,
-    required: true
+
   },
   LastName: {
     type: String,
-    required: true
+
   },
   DOB: {
     type: Date,
-    required: true
+
   },
   Gender: {
     type: String,
-    required: true
+
   },
 
   EmailAddress: {
     type: String,
     unique: true,
-    required: true
+
   },
   CurrentAddress: {
     Street: String,
@@ -42,7 +43,7 @@ const userSchema = new Schema({
   },
   Phone: {
     type: String,
-    required: true
+
   },
   EmergencyContact: {
     FirstName: String,
@@ -59,7 +60,7 @@ const userSchema = new Schema({
   Role: {
     RoleName: {
       type: String,
-      required: true,
+
       unique: true
     },
   },

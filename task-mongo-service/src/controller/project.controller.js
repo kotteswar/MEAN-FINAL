@@ -2,9 +2,7 @@ const Project = require('../model/project.model');
 const constants = require('../config/constants');
 
 exports.projects = function (req, res) {
-  Project.find({
-    "Active": "true"
-  }, function (err, projects) {
+  Project.find({}, function (err, projects) {
     if (err) res.send(err);
     res.send(projects);
   })
@@ -64,7 +62,7 @@ exports.project_delete = function (req, res) {
     _id: req.params.id
   }, project, function (err, project) {
 
-    
+
     if (err) res.send(err);
     if (!project) {
       errorHandler(res, "Appuser Not Found");

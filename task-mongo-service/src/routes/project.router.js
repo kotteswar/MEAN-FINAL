@@ -9,10 +9,10 @@ router.use(function(req, res, next) {
   next();
 });
 
-router.get('/', middleware.tokenValidation, project_controller.projects);
-router.post('/create', middleware.tokenValidation, project_controller.project_create);
-router.put('/:id/update', middleware.tokenValidation, project_controller.project_update);
-router.post('/:id/delete', middleware.tokenValidation, project_controller.project_delete);
+router.get('/',  project_controller.projects);
+router.post('/create',  project_controller.project_create);
+router.put('/:id/update',  project_controller.project_update);
+router.post('/:id/delete',  project_controller.project_delete);
 
 
 module.exports = router;

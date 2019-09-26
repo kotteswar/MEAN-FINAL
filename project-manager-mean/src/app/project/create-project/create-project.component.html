@@ -11,7 +11,7 @@
 		<label for="new-task" class="col-sm-2 col-form-label">Project</label>
 		<div class="col-sm-10">
             <div class="row">
-          <div class="col-sm-10">      
+          <div class="col-sm-10">
 		  <input type="text" class="form-control-text" id="new-project" formControlName="project" style="float: left;" [ngClass]="{ 'is-invalid': submitted && f.project.errors }">
           <div *ngIf="submitted && f.project.errors" class="invalid-feedback">
           <div *ngIf="f.project.errors.required">Project is required</div>
@@ -25,7 +25,7 @@
             </div>
 
             <div class="col-sm-3"> <!-- Start Date -->
-                <div class="input-group input-append date" class="datePicker">	
+                <div class="input-group input-append date" class="datePicker">
                     <mat-form-field [formGroup]="newProjectForm">
                     <input #datePicker matInput [matDatepicker]="startDate" formControlName="startDate" [(ngModel)]="newProjectForm.startDate" placeholder="Start Date" [ngClass]="{ 'is-invalid': submitted && f.startDate.errors }">
                     <mat-datepicker-toggle matSuffix [for]="startDate">
@@ -35,7 +35,7 @@
                     <div *ngIf="submitted && f.startDate.errors" class="invalid-feedback">
                       <div *ngIf="f.startDate.errors.required">Start Date is required</div>
                     </div>
-                </div>			
+                </div>
             </div>
 
             <div class="col-sm-3"> <!-- End Date -->
@@ -54,7 +54,7 @@
 
             </div>
 		</div>
-            
+
 	  </div>
 	  <div class="form-group row">
 		<label for="myRange" class="col-sm-2 col-form-label">Priority</label>
@@ -65,7 +65,7 @@
         </div>
 		</div>
 	  </div>
-	  
+
 	  <div class="form-group row">
 		<label for="staticEmail" class="col-sm-2 col-form-label">Manager</label>
 		<div class="col-sm-10">
@@ -83,19 +83,19 @@
     </div>
 		</div>
 	  </div>
-	  
-	  
-	  
 
-	  
+
+
+
+
 	  <div class="form-group row">
 		<label for="staticEmail" class="col-sm-2 col-form-label"></label>
 		  <div class="col-sm-6">
-			<button type="submit" class="btn btn-primary" (click)="submitForm()">Create Project</button> 
+			<button type="submit" class="btn btn-primary" (click)="submitForm()">Create Project</button>
       <button class="btn btn-default margin-20-left" (click)="resetProjectForm()">Reset</button>
 		</div>
-	  </div> 
-	  
+	  </div>
+
   </form>
 
 
@@ -104,15 +104,15 @@
 	</div>
 
 
-  <div *ngIf="projectList" class="user-list-container"> 
+  <div *ngIf="projectList" class="user-list-container">
     <div class="container nopadding">
       <div class="col-sm-8 filter-container">
         <div class="col-sm-12 nopadding">
-          <input class="search-box project-search" placeholder="Search..."  type="text" [(ngModel)]="projectSearch" autocomplete="off" /> 
+          <input class="search-box project-search" placeholder="Search..."  type="text" [(ngModel)]="projectSearch" autocomplete="off" />
         </div>
         <div class="col-sm-2 margintop20" style="text-align:right;">
           <label>Sort: </label>
-          
+
         </div>
         <div class="col-sm-10">
         <div class="col-sm-3">
@@ -125,7 +125,7 @@
           <button class="btn btn-outline-white" (click)="setOrder('Priority')">Priority</button>
         </div>
         <div class="col-sm-3">
-          <button class="btn btn-outline-white" (click)="setOrder('EmployeeId')">Completed</button>
+          <button class="btn btn-outline-white" (click)="setOrder('Active')">Completed</button>
         </div>
         </div>
       </div>
@@ -133,11 +133,15 @@
       <div class="col-sm-10 user-list-block" *ngFor="let project of projectList | filter:projectSearch | orderBy: order:reverse:'case-insensitive'; let i = index">
           <div class="col-sm-4 margintop20">
           <p>Project: <span class="user-detail">{{project.Project}}</span></p>
-          <p>No of Tasks: <span class="user-detail">placeHolder</span></p>
+          <p>Project manager: <span class="user-detail">{{project.Manager}}</span></p>
           <p>Start Date: <span class="user-detail">{{project.StartDate | date : 'shortDate'}}</span></p>
           </div>
           <div class="col-sm-3 margintop20">
-          <p>Completed: <span class="user-detail">Place holder</span></p>
+          <p>Completed:
+        <span class="user-detail">
+            <div *ngIf="project.Active === 'true'; else elseBlock">Progress</div>
+            <ng-template #elseBlock>Yes</ng-template>
+        </span></p>
           <p>End Date: <span class="user-detail">{{project.EndDate | date : 'shortDate'}}</span></p>
           </div>
           <div class="col-sm-3">
@@ -155,12 +159,12 @@
           </div>
       </div>
   </div>
-  </div> <!-- /container -->  
+  </div> <!-- /container -->
 
 
 
 
-<!-- 
+<!--
 Copyright Google LLC. All Rights Reserved.
 Use of this source code is governed by an MIT-style license that
 can be found in the LICENSE file at http://angular.io/license

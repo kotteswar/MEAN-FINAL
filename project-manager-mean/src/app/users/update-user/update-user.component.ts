@@ -72,9 +72,8 @@ export class UpdateUserComponent implements OnInit {
       "EmployeeId": this.updateUserForm.value.employeeId,
       "id": this.id
     }
-    this.service.login({ username: 'kotte@outlook.com', password: 'India$123' }).subscribe(user => {
-      ;
-      if (user) {
+
+
         this.service.UpdateUser(obj).subscribe(data =>  {
           ;
           if  (data) {
@@ -86,8 +85,8 @@ export class UpdateUserComponent implements OnInit {
           error  =>  {
             //error log
           });
-      }
-    })
+    
+
 
   }
 

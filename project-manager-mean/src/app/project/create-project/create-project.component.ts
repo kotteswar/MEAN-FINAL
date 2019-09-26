@@ -179,10 +179,8 @@ export class CreateProjectComponent implements OnInit {
     this.endDateCtrl = this.newProjectForm.get('endDate');
     this.startDateCtrl.disable();
     this.endDateCtrl.disable();
-    this.service.login({ username: 'kotte@outlook.com', password: 'India$123' }).subscribe(user => {
-      this.getUserList();
-      this.getProjectList();
-    });
+    this.getUserList();
+    this.getProjectList();
 
   }
 }

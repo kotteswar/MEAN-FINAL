@@ -108,9 +108,9 @@ export class AddUserComponent implements OnInit {
 
 
 
-    this.service.login({ username: 'kotte@outlook.com', password: 'India$123' }).subscribe(user => {
+  //  this.service.login({ username: 'kotte@outlook.com', password: 'India$123' }).subscribe(user => {
 
-      if (user) {
+
         this.service.createAppUser(obj).subscribe(data => {
 
           if (data) {
@@ -124,16 +124,14 @@ export class AddUserComponent implements OnInit {
           error => {
             //error log
           });
-      }
-    })
+
+   // })
 
   }
 
 
   ngOnInit() {
-    this.service.login({ username: 'kotte@outlook.com', password: 'India$123' }).subscribe(user => {
       this.getUserList();
-    })
 
   }
 

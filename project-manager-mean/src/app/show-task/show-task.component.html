@@ -1,8 +1,8 @@
 
-<div class="container go-to-button"> 
+<div class="container go-to-button">
           <button class="btn btn-brown float-right" (click)="goToCreatePage()" >Go to Create page</button>
- </div> 
-  <div class="container">  
+ </div>
+  <div class="container">
      <form class="new-task-form" [formGroup]="showTaskForm"  *ngIf="taskList">
     <div class="col-sm-12 nopadding">
           <div class="show-task-form"  *ngIf="taskList">
@@ -43,71 +43,71 @@
         </div>
     </div>
      </form>
- 
-  </div> 
+
+  </div>
 
   <div class="container">
           <div class="view-task">
       <div *ngIf="taskList">
-        
+
         <div class="task-card-main" *ngFor="let task of taskList | filter:taskSearch | orderBy: order:reverse:'case-insensitive';let i = index">
             <div class="row">
                 <div class="col-sm-6"> <!-- First Half-->
-                   <div class="row"> 
+                   <div class="row">
 
                       <div class="col-sm-6 task-card">
                         <div class="">
                           <h4>Task</h4>
                           <div class="task-box" >
                               <p class="align-center" *ngIf="task.Task">{{task.Task}}</p>
-                          </div> 
-                        </div>  
+                          </div>
+                        </div>
                       </div>
                       <div class="col-sm-6 parent-card">
                         <div class="">
                           <h4>Parent</h4>
                           <div class="task-box">
                               <p class="align-center" *ngIf="task.ParentTask">{{task.ParentTask}}</p>
-                          </div> 
-                        </div>  
-                      </div> 
+                          </div>
+                        </div>
+                      </div>
 
-                   </div>  
+                   </div>
                 </div>
 
                 <div class="col-xs-12 col-sm-6" >
-                  <div class="col-md-6 col-sm-12">  
-                      <div class="col-sm-4 col-xs-6">  
+                  <div class="col-md-6 col-sm-12">
+                      <div class="col-sm-4 col-xs-6">
                         <div class="priority-disp">
                           <h4>Priority</h4>
-                          <p *ngIf="task.Priority">{{task.Priority}}</p>
-                        </div> 
+                          <div class="circle" *ngIf="task.Priority"><div class="content">{{task.Priority}}</div></div>
+                        </div>
                       </div>
-                      <div class="col-sm-4 col-xs-6">  
+                      <div class="col-sm-4 col-xs-6">
                         <div class="priority-disp">
                           <h4>Start</h4>
                           <p *ngIf="task.StartDate">{{task.StartDate | date : 'shortDate'}}</p>
-                        </div> 
+                        </div>
                       </div>
-                      <div class="col-sm-4 col-xs-12">  
+                      <div class="col-sm-4 col-xs-12">
                         <div class="priority-disp">
                           <h4>End</h4>
                           <p *ngIf="task.EndDate">{{task.EndDate | date : 'shortDate'}}</p>
-                        </div> 
+                        </div>
                       </div>
                   </div>
 
                   <div class="col-md-6 col-sm-12 button-slot">
-                    <div class="col-sm-6 col-xs-6">  
+                    <div class="col-sm-6 col-xs-6">
                       <button class="btn btn-outline-white btn-md" (click)="editTask(task._id)">Edit</button>
-                    </div> 
-                    <div class="col-sm-6 col-xs-6">  
+                    </div>
+                    <div class="col-sm-6 col-xs-6">
                       <button class="btn btn-outline-white btn-md" (click)="endTask(task._id)">End Task</button>
-                    </div> 
+                    </div>
                   </div>
 
                 </div>
-            </div>  
-        </div> 
+            </div>
+        </div>
       </div>
   </div>

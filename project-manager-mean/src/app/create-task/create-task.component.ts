@@ -172,7 +172,7 @@ export class CreateTaskComponent implements OnInit {
 
 
   ngOnInit() {
-    this.service.login({ username: 'kotte@outlook.com', password: 'India$123' }).subscribe(user => {
+    //this.service.login({ username: 'kotte@outlook.com', password: 'India$123' }).subscribe(user => {
       this.startDateCtrl = this.newTaskForm.get('startDate');
       this.endDateCtrl = this.newTaskForm.get('endDate');
       this.priorityCtrl = this.newTaskForm.get('priority');
@@ -181,7 +181,7 @@ export class CreateTaskComponent implements OnInit {
       this.getProjectList();
       this.getUserList();
       this.getTask();
-    })
+    //})
   }
 
 }

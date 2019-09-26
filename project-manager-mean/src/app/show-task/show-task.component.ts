@@ -81,11 +81,11 @@ export class ShowTaskComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.service.login({ username: 'kotte@outlook.com', password: 'India$123' }).subscribe(user => {
-      if (user) {
+    //this.service.login({ username: 'kotte@outlook.com', password: 'India$123' }).subscribe(user => {
+      //if (user) {
         this.getTaskList();
-      }
-    })
+      //}
+    //})
 
   }
   getTaskList() {
