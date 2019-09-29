@@ -5,7 +5,6 @@
     <div class="container">
 	<div class="form-container">
       <!-- Example row of columns -->
-<!-- 	 <form class="task-manager-form"> -->
   <form class="new-task-form" [formGroup]="newProjectForm">
 	  <div class="form-group row">
 		<label for="new-task" class="col-sm-2 col-form-label">Project</label>
@@ -20,7 +19,7 @@
 
             <div class="col-sm-3 checkbox-style">
                 <section class="example-section">
-                    <mat-checkbox class="example-margin" (click)="toggleCtrState()">Set Start and End Date</mat-checkbox>
+                    <mat-checkbox class="example-margin" [formGroup]="newProjectForm"  (click)="toggleCtrState()">Set Start and End Date</mat-checkbox>
                 </section>
             </div>
 
@@ -97,10 +96,6 @@
 	  </div>
 
   </form>
-
-
-
-	<!-- </form> -->
 	</div>
 
 

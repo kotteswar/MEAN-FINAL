@@ -3,7 +3,7 @@ import { Task } from '../../task';
 import  {  FormBuilder  }  from  '@angular/forms';
 import  {  Validators  }  from  '@angular/forms';
 import  {  FormArray  }  from  '@angular/forms';
-import { MongoapiService } from '../../services/mongoapi.service';
+import { UserapiService } from '../../services/userapi.service';
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -22,7 +22,7 @@ export class UpdateUserComponent implements OnInit {
   }
   id: any;
   userList: any;
-  constructor(private fb: FormBuilder, public service: MongoapiService, private activatedRoute: ActivatedRoute, public router: Router) {
+  constructor(private fb: FormBuilder, public userService: UserapiService, private activatedRoute: ActivatedRoute, public router: Router) {
     this.activatedRoute.queryParams.subscribe(params  =>  {
       this.id  =  params['id'];
 
@@ -31,7 +31,7 @@ export class UpdateUserComponent implements OnInit {
   }
 
   getTask() {
-    this.service.GetUserList().subscribe(data =>  {
+    this.userService.GetUserList().subscribe(data =>  {
       if  (data) {
         var curId = this.id;
         this.userList = data.filter(x => x._id == curId)[0];
@@ -74,7 +74,7 @@ export class UpdateUserComponent implements OnInit {
     }
 
 
-        this.service.UpdateUser(obj).subscribe(data =>  {
+        this.userService.UpdateUser(obj).subscribe(data =>  {
           ;
           if  (data) {
             this.router.navigate(["/adduser"]);
@@ -85,7 +85,7 @@ export class UpdateUserComponent implements OnInit {
           error  =>  {
             //error log
           });
-    
+
 
 
   }

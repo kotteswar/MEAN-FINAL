@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CreateProjectComponent } from './create-project.component';
+import { ReactiveFormsModule, FormBuilder } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 describe('CreateProjectComponent', () => {
   let component: CreateProjectComponent;
@@ -19,7 +21,7 @@ describe('CreateProjectComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+
+
+
 });

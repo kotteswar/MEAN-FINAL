@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CreateTaskComponent } from './create-task/create-task.component';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule, FormBuilder} from '@angular/forms';
 import { UpdateTaskComponent } from './update-task/update-task.component';
 import { ShowTaskComponent } from './show-task/show-task.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -36,6 +36,19 @@ import { UpdateProjectComponent } from './project/update-project/update-project.
     UpdateProjectComponent,
   ],
   imports: [
+    BrowserModule,
+    AppRoutingModule,
+    ReactiveFormsModule,
+    FormsModule,
+    BrowserAnimationsModule,
+    MatFormFieldModule,
+    DemoMaterialModule,
+    HttpClientModule,
+    Ng2SearchPipeModule,
+    OrderModule
+
+  ],
+  exports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,

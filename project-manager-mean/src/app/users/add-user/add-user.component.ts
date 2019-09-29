@@ -5,7 +5,9 @@ import { Validators } from '@angular/forms';
 import { FormArray } from '@angular/forms';
 
 
-import { MongoapiService } from '../../services/mongoapi.service'
+import { TaskapiService } from '../../services/taskapi.service';
+import { UserapiService } from '../../services/userapi.service';
+import { ProjectapiService } from '../../services/projectapi.service';
 
 import { Router } from '@angular/router';
 
@@ -16,7 +18,7 @@ import { Router } from '@angular/router';
 })
 export class AddUserComponent implements OnInit {
 
-  constructor(public router: Router, private fb: FormBuilder, public service: MongoapiService) { }
+  constructor(public router: Router, private fb: FormBuilder, public service: TaskapiService, public userService: UserapiService, public projectService: ProjectapiService) { }
   submitted = false;
   createUserForm = this.fb.group({
     firstName: ['', Validators.required],
@@ -42,7 +44,7 @@ export class AddUserComponent implements OnInit {
 
   getUserList() {
 
-    this.service.GetUserList().subscribe(data => {
+    this.userService.GetUserList().subscribe(data => {
 
       if (data) {
         this.userList = data;
@@ -70,7 +72,7 @@ export class AddUserComponent implements OnInit {
     var obj = {
       id: id
     };
-    this.service.DeleteUser(obj).subscribe(data => {
+    this.userService.DeleteUser(obj).subscribe(data => {
 
       if (data) {
         this.getUserList();
@@ -111,7 +113,7 @@ export class AddUserComponent implements OnInit {
   //  this.service.login({ username: 'kotte@outlook.com', password: 'India$123' }).subscribe(user => {
 
 
-        this.service.createAppUser(obj).subscribe(data => {
+        this.userService.createAppUser(obj).subscribe(data => {
 
           if (data) {
             this.createUserForm.reset();

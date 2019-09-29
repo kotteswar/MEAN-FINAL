@@ -3,8 +3,10 @@ import { Task } from '../task';
 import { FormBuilder } from '@angular/forms';
 import { Validators } from '@angular/forms';
 import { FormArray } from '@angular/forms';
-import { MongoapiService } from '../services/mongoapi.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { TaskapiService } from '../services/taskapi.service';
+import { UserapiService } from '../services/userapi.service';
+import { ProjectapiService } from '../services/projectapi.service';
 
 
 @Component({
@@ -56,7 +58,7 @@ export class UpdateTaskComponent implements OnInit {
     return this.updateTaskForm.get('aliases') as FormArray;
   }
 
-  constructor(private fb: FormBuilder, public service: MongoapiService, private activatedRoute: ActivatedRoute, public router: Router) {
+  constructor(private fb: FormBuilder, private activatedRoute: ActivatedRoute, public router: Router,public service: TaskapiService, public userService: UserapiService, public projectService: ProjectapiService) {
     this.activatedRoute.queryParams.subscribe(params => {
       this.id = params['id'];
 
@@ -100,7 +102,7 @@ export class UpdateTaskComponent implements OnInit {
 
   getProjectList() {
     debugger;
-    this.service.GetProjectList().subscribe(data => {
+    this.projectService.GetProjectList().subscribe(data => {
       debugger;
       if (data) {
         this.projectList = data;
@@ -115,7 +117,7 @@ export class UpdateTaskComponent implements OnInit {
 
   getUserList() {
     debugger;
-    this.service.GetUserList().subscribe(data => {
+    this.userService.GetUserList().subscribe(data => {
       debugger;
       if (data) {
         this.userList = data;

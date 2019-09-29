@@ -3,8 +3,12 @@ import { Task } from '../task';
 import { FormBuilder } from '@angular/forms';
 import { Validators } from '@angular/forms';
 import { FormArray } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule, FormGroup} from '@angular/forms';
 
-import { MongoapiService } from '../services/mongoapi.service'
+import { TaskapiService } from '../services/taskapi.service';
+import { UserapiService } from '../services/userapi.service';
+import { ProjectapiService } from '../services/projectapi.service';
+
 
 import { Router } from '@angular/router';
 
@@ -65,7 +69,7 @@ export class CreateTaskComponent implements OnInit {
     return this.newTaskForm.get('aliases') as FormArray;
   }
 
-  constructor(public router: Router, private fb: FormBuilder, public service: MongoapiService) { }
+  constructor(public router: Router, private fb: FormBuilder, public service: TaskapiService, public userService: UserapiService, public projectService: ProjectapiService) { }
 
 
   goToListPage() {
@@ -79,7 +83,7 @@ export class CreateTaskComponent implements OnInit {
   userList: any;
   getProjectList() {
 
-    this.service.GetProjectList().subscribe(data => {
+    this.projectService.GetProjectList().subscribe(data => {
 
       if (data) {
         this.projectList = data;
@@ -93,7 +97,7 @@ export class CreateTaskComponent implements OnInit {
   }
   getUserList() {
 
-    this.service.GetUserList().subscribe(data => {
+    this.userService.GetUserList().subscribe(data => {
 
       if (data) {
 

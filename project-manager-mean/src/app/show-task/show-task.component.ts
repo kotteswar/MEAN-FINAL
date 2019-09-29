@@ -4,8 +4,10 @@ import { FormBuilder } from '@angular/forms';
 import { Validators } from '@angular/forms';
 import { FormArray } from '@angular/forms';
 import { VERSION } from '@angular/material';
-import { MongoapiService } from '../services/mongoapi.service'
 import { Router } from '@angular/router';
+import { TaskapiService } from '../services/taskapi.service';
+import { UserapiService } from '../services/userapi.service';
+import { ProjectapiService } from '../services/projectapi.service';
 
 
 @Component({
@@ -42,7 +44,7 @@ export class ShowTaskComponent implements OnInit {
     return this.showTaskForm.get('aliases') as FormArray;
   }
 
-  constructor(private fb: FormBuilder, public service: MongoapiService, public router: Router, ) { }
+constructor(public router: Router, private fb: FormBuilder, public service: TaskapiService, public userService: UserapiService, public projectService: ProjectapiService) { }
 
   addAlias() {
     this.aliases.push(this.fb.control(''));

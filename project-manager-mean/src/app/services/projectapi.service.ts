@@ -12,7 +12,7 @@ import 'rxjs/Rx';
 @Injectable({
   providedIn: 'root'
 })
-export class MongoapiService {
+export class ProjectapiService {
   baseUrl: string = environment.apiUrl;
   mongoApiUrl: string = environment.mongoApiUrl;
   //xapikey: string = environment.xapikey;
@@ -59,94 +59,7 @@ export class MongoapiService {
   }
 
 
-  saveForm(obj : any) {
-
-
-    return this.http.post<any>(this.mongoApiUrl + `task/create`, obj, this.jwt())
-      .pipe(map(data => {
-
-
-        return data;
-      }));
-  }
-
-  DeleteTask(obj : any) {
-
-
-    return this.http.post<any>(this.mongoApiUrl + "task/" + obj.id + "/delete", obj, this.jwt())
-      .pipe(map(data => {
-
-
-        return data;
-      }));
-  }
-
-  UpdateTask(obj : any) {
-
-
-    return this.http.put<any>(this.mongoApiUrl + `task/` + obj.id + `/update`, obj, this.jwt())
-      .pipe(map(data => {
-
-
-        return data;
-      }));
-  }
-
-  GetTaskList() {
-    return this.http.get<any>(this.mongoApiUrl + `task`, this.jwt())
-      .pipe(map(data => {
-
-        return data;
-      }));
-  }
-
-  //Create App User
-  createAppUser(obj : any) {
-
-
-    return this.http.post<any>(this.mongoApiUrl + `appuser/create`, obj, this.jwt())
-      .pipe(map(data => {
-
-
-        return data;
-      }));
-  }
-
-  //Get App User
-  GetUserList() {
-    return this.http.get<any>(this.mongoApiUrl + `appuser`, this.jwt())
-      .pipe(map(data => {
-
-        return data;
-      }));
-  }
-
-  // Delete User
-
-  DeleteUser(obj : any) {
-
-
-    return this.http.post<any>(this.mongoApiUrl + "appuser/" + obj.id + "/delete", obj, this.jwt())
-      .pipe(map(data => {
-
-
-        return data;
-      }));
-  }
-
-  // Update User
-  UpdateUser(obj : any) {
-
-
-    return this.http.put<any>(this.mongoApiUrl + `appuser/` + obj.id + `/update`, obj, this.jwt())
-      .pipe(map(data => {
-
-
-        return data;
-      }));
-  }
-
-  // Create Project
+    // Create Project
 
   createProject(obj : any) {
     return this.http.post<any>(this.mongoApiUrl + `project/create`, obj, this.jwt())
@@ -188,6 +101,4 @@ export class MongoapiService {
       }));
   }
 
-
-
-}
+ }

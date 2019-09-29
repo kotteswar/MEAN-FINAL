@@ -2,9 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Validators } from '@angular/forms';
 import { FormArray } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { Observable } from 'rxjs';
 
-import { MongoapiService } from '../../services/mongoapi.service'
+import { TaskapiService } from '../../services/taskapi.service';
+import { UserapiService } from '../../services/userapi.service';
+import { ProjectapiService } from '../../services/projectapi.service';
 
 import { Router } from '@angular/router';
 
@@ -41,7 +44,7 @@ export class CreateProjectComponent implements OnInit {
     return this.newProjectForm.get('aliases') as FormArray;
   }
 
-  constructor(public router: Router, private fb: FormBuilder, public service: MongoapiService) {
+  constructor(public router: Router, private fb: FormBuilder, public service: TaskapiService, public userService: UserapiService, public projectService: ProjectapiService) {
 
   }
 
@@ -80,11 +83,9 @@ export class CreateProjectComponent implements OnInit {
     }
 
 
-    this.service.createProject(obj).subscribe(data => {
+    this.projectService.createProject(obj).subscribe(data => {
 
       if (data) {
-
-
         this.newProjectForm.reset();
         this.getProjectList();
       } else {
@@ -114,7 +115,7 @@ export class CreateProjectComponent implements OnInit {
   }
   getProjectList() {
 
-    this.service.GetProjectList().subscribe(data => {
+    this.projectService.GetProjectList().subscribe(data => {
 
       if (data) {
         this.projectList = data;
@@ -128,7 +129,7 @@ export class CreateProjectComponent implements OnInit {
   }
   getUserList() {
 
-    this.service.GetUserList().subscribe(data => {
+    this.userService.GetUserList().subscribe(data => {
 
       if (data) {
         this.userList = data;
@@ -157,7 +158,7 @@ export class CreateProjectComponent implements OnInit {
     var obj = {
       id: id
     };
-    this.service.DeleteProject(obj).subscribe(data => {
+    this.projectService.DeleteProject(obj).subscribe(data => {
 
       if (data) {
 

@@ -1,5 +1,5 @@
 <div class="container">
-
+  <h2 class="center-text">CREATE TASK</h2>
 </div>
 <!-- New Form-->
     <div class="container">
@@ -42,7 +42,7 @@
 				</div>
 			</div>
 	  </div>
-		
+
 	  <div class="form-group row">
 			<label for="myRange" class="col-sm-2 col-form-label">Priority</label>
 			<div class="col-sm-4">
@@ -52,7 +52,7 @@
 				</div>
 			</div>
 	  </div>
-	  
+
 				<div class="form-group row">
 			<label for="userName" class="col-sm-2 col-form-label">Parent Task</label>
 			<div class="col-sm-10">
@@ -69,11 +69,11 @@
 				</div>
 			</div>
 		</div>
-	  
+
 	  <div class="form-group row">
 			<label for="staticEmail" class="col-sm-2 col-form-label">Start Date</label>
 			<div class="col-sm-3">
-				<div class="input-group input-append date" class="datePicker">	
+				<div class="input-group input-append date" class="datePicker">
 					<mat-form-field [formGroup]="newTaskForm">
 						<input #datePicker matInput [matDatepicker]="startDate" formControlName="startDate" placeholder="Date" [ngClass]="{ 'is-invalid': submitted && f.startDate.errors }">
 						<mat-datepicker-toggle matSuffix [for]="startDate">
@@ -83,10 +83,10 @@
 				<div *ngIf="submitted && f.startDate.errors" class="invalid-feedback">
 					<div *ngIf="f.startDate.errors.required">Parent Task is required</div>
 				</div>
-				</div>			
+				</div>
 			</div>
 	  </div>
-	  
+
 	  <div class="form-group row">
 		<label for="staticEmail" class="col-sm-2 col-form-label">End Date</label>
 		  <div class="col-sm-3">
@@ -99,10 +99,10 @@
     					</mat-form-field>
 					<div *ngIf="submitted && f.endDate.errors" class="invalid-feedback">
 						<div *ngIf="f.endDate.errors.required">End date is required</div>
-					</div>	
+					</div>
 		</div>
 		</div>
-	  </div> 
+	  </div>
 
 		<div class="form-group row">
 			<label for="userName" class="col-sm-2 col-form-label">User</label>
@@ -117,30 +117,30 @@
 				</mat-form-field>
 				<div *ngIf="submitted && f.user.errors" class="invalid-feedback">
 					<div *ngIf="f.user.errors.required">User is required</div>
-				</div>	
+				</div>
 			</div>
 		</div>
-	  
+
 	  <div class="form-group row">
 		<label for="staticEmail" class="col-sm-2 col-form-label"></label>
 		  <div class="col-sm-6">
-			<button type="submit" class="btn btn-primary" (click)="submitForm()">Add Task</button> 
+			<button type="submit" class="btn btn-primary" (click)="submitForm()">Add Task</button>
       <span class="btn btn-default margin-20-left">Reset</span>
 		</div>
-	  </div> 
-	  
+	  </div>
+
   </form>
 
 
 
 	<!-- </form> -->
 	</div>
-  </div> <!-- /container -->  
+  </div> <!-- /container -->
 
 
 
 
-<!-- 
+<!--
 Copyright Google LLC. All Rights Reserved.
 Use of this source code is governed by an MIT-style license that
 can be found in the LICENSE file at http://angular.io/license
