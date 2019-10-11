@@ -1,7 +1,7 @@
-const devConfig = { MONGO_URL: 'mongodb://localhost:27017/taskmanagerapi-dev', }; 
- const testConfig = { MONGO_URL: 'mongodb://localhost:27017/taskmanagerapi-test', }; 
+const devConfig = { MONGO_URL: 'mongodb://localhost:27017/taskmanagerapi-dev', };
+ const testConfig = { MONGO_URL: 'mongodb://localhost:27017/taskmanagerapi-test', };
  const prodConfig = { MONGO_URL: 'mongodb://localhost:27017/taskmanagerapi-prod', };
- 
+
 
 const defaultConfig = {
 PORT: process.env.PORT || 3003,
@@ -13,7 +13,7 @@ function envConfig(env) {
             return prodConfig;
         case 'test':
             return testConfig;
-            
+
         default:
             return devConfig;
     }
