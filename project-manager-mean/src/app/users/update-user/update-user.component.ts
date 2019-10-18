@@ -27,14 +27,13 @@ export class UpdateUserComponent implements OnInit {
       this.id  =  params['id'];
 
     });
-    this.getTask();
   }
 
   getTask() {
     this.userService.GetUserList().subscribe(data =>  {
       if  (data) {
         var curId = this.id;
-        this.userList = data.filter(x => x._id == curId)[0];
+        this.userList = data.filter(x => x.id == curId)[0];
       }  else  {
         //error log
       }
@@ -49,6 +48,7 @@ export class UpdateUserComponent implements OnInit {
   }
 
   ngOnInit() {
+      this.getTask();
   }
   resetForm() {
     this.updateUserForm.reset();

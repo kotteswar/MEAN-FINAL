@@ -63,7 +63,7 @@ export class UpdateTaskComponent implements OnInit {
       this.id = params['id'];
 
     });
-    this.getTask();
+
   }
 
   parentList: any;
@@ -72,7 +72,7 @@ export class UpdateTaskComponent implements OnInit {
       if (data) {
         var curId = this.id;
         this.parentList = data;
-        this.taskList = data.filter(x => x._id == curId)[0];
+        this.taskList = data.filter(x => x.id == curId)[0];
         if (this.taskList.onlyParentTask) {
           this.taskList["Task"] = this.taskList.ParentTask;
           this.taskList["ParentTask"] = "";
@@ -134,6 +134,7 @@ export class UpdateTaskComponent implements OnInit {
   projectList: any;
   updateTaskVal: any;
   ngOnInit() {
+    this.getTask();
     this.startDateCtrl = this.updateTaskForm.get('startDate');
     this.endDateCtrl = this.updateTaskForm.get('endDate');
     this.priorityCtrl = this.updateTaskForm.get('priority');

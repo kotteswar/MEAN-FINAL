@@ -60,9 +60,9 @@ export class TaskapiService {
 
 
   saveForm(obj : any) {
+debugger
 
-
-    return this.http.post<any>(this.mongoApiUrl + `task/create`, obj, this.jwt())
+    return this.http.post<any>(this.mongoApiUrl + `Tasks/`, obj)
       .pipe(map(data => {
 
 
@@ -73,7 +73,7 @@ export class TaskapiService {
   DeleteTask(obj : any) {
 
 
-    return this.http.post<any>(this.mongoApiUrl + "task/" + obj.id + "/delete", obj, this.jwt())
+    return this.http.delete(this.mongoApiUrl + "Tasks/"+ obj.id)
       .pipe(map(data => {
 
 
@@ -84,7 +84,7 @@ export class TaskapiService {
   UpdateTask(obj : any) {
 
 
-    return this.http.put<any>(this.mongoApiUrl + `task/` + obj.id + `/update`, obj, this.jwt())
+    return this.http.put<any>(this.mongoApiUrl + 'Tasks/',obj)
       .pipe(map(data => {
 
 
@@ -93,7 +93,7 @@ export class TaskapiService {
   }
 
   GetTaskList() {
-    return this.http.get<any>(this.mongoApiUrl + `task`, this.jwt())
+    return this.http.get<any>(this.mongoApiUrl + `Tasks/`)
       .pipe(map(data => {
 
         return data;

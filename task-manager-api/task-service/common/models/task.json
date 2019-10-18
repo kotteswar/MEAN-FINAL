@@ -1,0 +1,47 @@
+{"name": "Tasks",
+"description": "Maintains a list of products",
+"base": "PersistedModel",
+"idInjection": true,
+"properties": {
+  "Project": {
+    "type": "String"
+  },
+  "Task": {
+    "type": "String",
+    "required": false
+  },
+  "Priority": {
+    "type": "Number",
+    "required": false
+  },
+  "ParentTask": {
+    "type": "String",
+    "required": false
+  },
+  "StartDate": {
+    "type": "Date",
+    "required": false
+  },
+  "EndDate": {
+    "type": "Date",
+    "required": false
+  },
+  "User": {
+    "type": "String",
+    "required": false
+  },
+  "onlyParentTask": {
+    "type": "Boolean",
+    "required": false
+  },
+  "Active": {
+    "type": "String",
+    "required": false,
+    "default": true
+  }
+},
+"validations": [],
+"relations": {},
+"acls": [],
+"methods": {}
+}

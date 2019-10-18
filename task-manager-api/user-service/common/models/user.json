@@ -1,0 +1,30 @@
+{"name": "Users",
+"description": "Maintains a list of products",
+"base": "PersistedModel",
+"idInjection": true,
+"properties": {
+
+"FirstName": {
+    "type": "String"
+  },
+  "LastName": {
+    "type": "String"
+  },
+  "EmployeeId": {
+    "type": "String"
+  },
+  "Active": {
+    "type": "String",
+    "default": true
+  }
+
+},
+"validations": [],
+"relations": {},
+"acls": [],
+"methods": {}
+}
+
+
+
+

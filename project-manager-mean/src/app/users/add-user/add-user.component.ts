@@ -68,6 +68,7 @@ export class AddUserComponent implements OnInit {
   }
 
   endUser(index: any) {
+    debugger
     var id = index;
     var obj = {
       id: id

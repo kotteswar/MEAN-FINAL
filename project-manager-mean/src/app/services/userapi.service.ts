@@ -63,19 +63,18 @@ export class UserapiService {
   createAppUser(obj : any) {
 
 
-    return this.http.post<any>(this.mongoApiUrl + `appuser/create`, obj, this.jwt())
+    return this.http.post<any>(this.mongoApiUrl + 'Users/',obj)
       .pipe(map(data => {
-
-
         return data;
       }));
   }
 
   //Get App User
   GetUserList() {
-    return this.http.get<any>(this.mongoApiUrl + `appuser`, this.jwt())
-      .pipe(map(data => {
 
+    return this.http.get<any>(this.mongoApiUrl + 'Users/')
+      .pipe(map(data => {
+          console.log(data);
         return data;
       }));
   }
@@ -85,10 +84,8 @@ export class UserapiService {
   DeleteUser(obj : any) {
 
 
-    return this.http.post<any>(this.mongoApiUrl + "appuser/" + obj.id + "/delete", obj, this.jwt())
+    return this.http.delete<any>(this.mongoApiUrl + "Users/" + obj.id)
       .pipe(map(data => {
-
-
         return data;
       }));
   }
@@ -97,10 +94,8 @@ export class UserapiService {
   UpdateUser(obj : any) {
 
 
-    return this.http.put<any>(this.mongoApiUrl + `appuser/` + obj.id + `/update`, obj, this.jwt())
+    return this.http.put<any>(this.mongoApiUrl + `Users/`, obj)
       .pipe(map(data => {
-
-
         return data;
       }));
   }

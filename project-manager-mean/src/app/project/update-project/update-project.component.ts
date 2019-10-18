@@ -59,7 +59,7 @@ export class UpdateProjectComponent implements OnInit {
     this.projectService.GetProjectList().subscribe(data => {
       if (data) {
         var curId = this.id;
-        this.projectList = data.filter(x => x._id == curId)[0];
+        this.projectList = data.filter(x => x.id == curId)[0];
       } else {
         //error log
       }

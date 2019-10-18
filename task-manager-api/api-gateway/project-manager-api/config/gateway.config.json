@@ -1,0 +1,122 @@
+{
+    "http": {
+      "port": 8090
+    },
+    "admin": {
+      "port": 9876,
+      "hostname": "localhost"
+    },
+    "apiEndpoints": {
+      "api": {
+        "host": "localhost",
+        "paths": "/ip"
+      },
+      "project": {
+        "host": "localhost",
+        "paths": "/api/Projects/*"
+      },
+      "task": {
+        "host": "localhost",
+        "paths":  "/api/Tasks/*"
+      },
+      "user": {
+        "host": "localhost",
+        "paths":  "/api/Users/*"
+      }
+},
+    "serviceEndpoints": {
+      "httpbin": {
+        "url": "https://httpbin.org"
+      },
+      "projectsrv": {
+        "url": "http://localhost:3000/"
+      },
+      "tasksrv": {
+        "url": "http://localhost:3001/"
+      },
+      "usersrv": {
+        "url": "http://localhost:3002/"
+      }
+    },
+    "policies": [
+      "basic-auth",
+      "key-auth",
+      "cors",
+      "expression",
+      "log",
+      "oauth2",
+      "proxy",
+      "rate-limit"
+    ],
+    "pipelines": [
+      {
+        "name": "default",
+        "apiEndpoints": [
+          "api"
+        ],
+        "policies": [
+{
+            "proxy": [
+              {
+                "action": {
+                  "serviceEndpoint": "httpbin",
+                  "changeOrigin": true
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "default-1",
+        "apiEndpoints": [
+          "project"
+        ],
+        "policies": [
+      {
+            "proxy": [
+              {
+                "action": {
+                  "serviceEndpoint": "projectsrv"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "default-2",
+        "apiEndpoints": [
+          "task"
+        ],
+        "policies": [
+{
+            "proxy": [
+              {
+                "action": {
+                  "serviceEndpoint": "tasksrv"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "default-3",
+        "apiEndpoints": [
+          "user"
+        ],
+        "policies": [
+{
+            "proxy": [
+              {
+                "action": {
+                  "serviceEndpoint": "usersrv"
+                }
+              }
+            ]
+          }
+        ]
+      }
+]
+  }

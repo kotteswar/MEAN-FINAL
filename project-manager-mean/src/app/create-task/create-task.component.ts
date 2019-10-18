@@ -119,16 +119,8 @@ export class CreateTaskComponent implements OnInit {
     if (this.onlyParentTask == true) {
       this.newTaskVal = {
         "Project": this.newTaskForm.value.project,
-        "Task": "",
         "ParentTask": this.newTaskForm.value.newTask,
-        "onlyParentTask": this.onlyParentTask,
-
-        "Priority": 0,
-
-        "StartDate": "",
-        "EndDate": "",
-
-        "User": ""
+        "onlyParentTask": this.onlyParentTask
       }
     }
     else {

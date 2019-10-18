@@ -5,7 +5,8 @@
 export const environment = {
   production: false,
   apiUrl:'',
-  mongoApiUrl:'http://localhost:3003/taskmanagerservice/api/'
+  mongoApiUrl: 'http://localhost:8090/api/'
+  //mongoApiUrl:'http://localhost:3003/taskmanagerservice/api/'
 
 };
 

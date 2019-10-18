@@ -1,0 +1,35 @@
+{
+"name": "Project",
+"description": "A Project model representing our projects.",
+"base": "PersistedModel",
+"idInjection": true,
+"properties": {
+
+  "Project": {
+    "type": "String"
+  },
+  "Priority": {
+    "type": "Number"
+  },
+  "Manager": {
+    "type": "String"
+  },
+  "StartDate": {
+    "type": "Date",
+    "required": false
+  },
+  "EndDate": {
+    "type": "Date",
+    "required": false
+  },
+  "Active": {
+    "type": "String",
+    "default": true
+  }
+
+},
+"validations": [],
+"relations": {},
+"acls": [],
+"methods": {}
+}

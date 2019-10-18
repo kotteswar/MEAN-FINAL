@@ -62,7 +62,7 @@ export class ProjectapiService {
     // Create Project
 
   createProject(obj : any) {
-    return this.http.post<any>(this.mongoApiUrl + `project/create`, obj, this.jwt())
+    return this.http.post<any>(this.mongoApiUrl + `Projects/`, obj)
       .pipe(map(data => {
 
 
@@ -73,7 +73,7 @@ export class ProjectapiService {
   // Delete Project
 
   DeleteProject(obj : any) {
-    return this.http.post<any>(this.mongoApiUrl + "project/" + obj.id + "/delete", obj, this.jwt())
+     return this.http.delete(this.mongoApiUrl + "Projects/"+ obj.id)
       .pipe(map(data => {
 
         return data;
@@ -83,7 +83,7 @@ export class ProjectapiService {
   // Update Project
 
   UpdateProject(obj : any) {
-    return this.http.put<any>(this.mongoApiUrl + `project/` + obj.id + `/update`, obj, this.jwt())
+    return this.http.put<any>(this.mongoApiUrl + `Projects/`,obj)
       .pipe(map(data => {
 
 
@@ -94,9 +94,9 @@ export class ProjectapiService {
   //Get Project
 
   GetProjectList() {
-    return this.http.get<any>(this.mongoApiUrl + `project`, this.jwt())
+    return this.http.get<any>(this.mongoApiUrl + `Projects/`)
       .pipe(map(data => {
-
+          console.log(data);
         return data;
       }));
   }

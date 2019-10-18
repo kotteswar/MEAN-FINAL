@@ -36,27 +36,27 @@
           </div>
         </div>
     </div>
-	  
+
 
 	 <div class="form-group row">
 		<label for="staticEmail" class="col-sm-2 col-form-label"></label>
 		  <div class="col-sm-6">
-			<button type="submit" class="btn btn-primary">Add User</button> 
+			<button type="submit" class="btn btn-primary">Add User</button>
       <span class="btn btn-default margin-20-left" (click)="resetForm()">Reset</span>
 		</div>
-	  </div> 
-	  
+	  </div>
+
   </form>
 
 
 
 	<!-- </form> -->
   </div>
-  <div *ngIf="userList" class="user-list-container"> 
+  <div *ngIf="userList" class="user-list-container">
     <div class="container nopadding">
       <div class="col-sm-8 filter-container">
         <div class="col-sm-4 nopadding">
-          <input class="search-box" placeholder="Search..."  type="text" [(ngModel)]="userSearch" autocomplete="off" /> 
+          <input class="search-box" placeholder="Search..."  type="text" [(ngModel)]="userSearch" autocomplete="off" />
         </div>
         <div class="col-sm-3">
           <label>Sort: </label>
@@ -77,9 +77,9 @@
     <p>Employee Id: <span class="user-detail">{{user.EmployeeId}}</span></p>
   </div>
   <div class="col-sm-2">
-    <button class="btn btn-outline-white" (click)="editUser(user._id)">Edit</button>
+    <button class="btn btn-outline-white" (click)="editUser(user.id)">Edit</button>
   <br />
-    <button class="btn btn-outline-white" (click)="endUser(user._id)">Delete</button>
+    <button class="btn btn-outline-white" (click)="endUser(user.id)">Delete</button>
   </div>
 </div>
 </div>
@@ -89,12 +89,12 @@
 
 
 
-   <!-- /container -->  
+   <!-- /container -->
 
 
 
 
-<!-- 
+<!--
 Copyright Google LLC. All Rights Reserved.
 Use of this source code is governed by an MIT-style license that
 can be found in the LICENSE file at http://angular.io/license
