@@ -1,13 +1,7 @@
-    
-To RUN the mongo service
-Step1 - Open "task-mongo-service" folder and go to root directory in cmd prompt.
-Step2 - In CMD prompt type "npm install" to download all dependent node modules.
-Step3 - Once node modules installed type "npm run dev:build" in terminal.
-Step4 - Once the build has been completed. Type "npm run dev" to run the mongo server.
-
 
 To RUN the Angular APP
 Step1 - Open "project-manager-mean" folder and go to root directory in cmd prompt.
+Note: Skip Step2 to if node modules dependency files are already available.
 Step2 - In CMD prompt type "npm install" to download all dependent node modules.
 Step3 - Once node modules installed type "ng serve -o" in terminal.
 Step4 - Now our application starts to run in the terminal mentioned localhost path.

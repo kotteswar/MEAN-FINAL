@@ -1,0 +1,42 @@
+To Run Gateway:
+
+Go to -- > "task-manager-api/"  "project-manager-api" folder and open in CMD.
+
+--> Type command "npm install"
+--> npm start
+
+Now API gateway starts to run.
+
+
+To Run Services
+
+For Project Services:
+
+Got to 
+task-manager-api -->
+--> "project-service" folder in CMD. 
+--> Type command "npm install"
+--> Type command "node ."
+Now service has been ready to serve and it will start to run in mentioned port.
+
+
+
+For Task Services:
+
+Got to 
+task-manager-api -->
+--> "task-service" folder in CMD. 
+--> Type command "npm install"
+--> Type command "node ."
+Now service has been ready to serve and it will start to run in mentioned port.
+
+For User Services:
+
+Step:1
+
+Got to 
+task-manager-api -->
+--> "user-service" folder in CMD. 
+--> Type command "npm install"
+--> Type command "node ."
+Now service has been ready to serve and it will start to run in mentioned port.
