@@ -5,7 +5,7 @@ Here is the updated code
 async function submitCode(){
 var code =$("#airportCode").val();
 var airport= await getAirports(code);
-var countryDetails= await getCountryDetails(a[0].countryCode)
+var countryDetails= await getCountryDetails(airport[0].countryCode)
 console.log(airport,countryDetails);
 $("#result").html(airport[0].name + ", " + airport[0].city + ", " + countryDetails);
 
@@ -37,7 +37,6 @@ async function getAirports(code){
                 } 
 
            return    $.ajax(settings).done(function (response) { 
-debugger
                     console.log("Country Code =>"+ response); 
                     //var res = await getCountryDetails(response[0].countryCode);
                     console.log("Result Country =>" + response);
