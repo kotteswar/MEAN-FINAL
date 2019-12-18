@@ -1,0 +1,50 @@
+Here is the updated code
+
+
+
+async function submitCode(){
+var code =$("#airportCode").val();
+var airport= await getAirports(code);
+var countryDetails= await getCountryDetails(a[0].countryCode)
+console.log(airport,countryDetails);
+$("#result").html(airport[0].name + ", " + airport[0].city + ", " + countryDetails);
+
+}
+
+     async function getCountryDetails(code)
+            {
+                        var settings = {
+                        "async": true,
+                        "crossDomain": true,
+                        "url": "https://restcountries.eu/rest/v2/alpha/"+code,
+                        "method": "GET"
+                        }
+                        return $.ajax(settings).done(response=>response.JSON).done(function (response) {return response.name;});             
+            }
+
+async function getAirports(code){
+
+               
+                var settings = {
+                    "async": true,
+                    "crossDomain": true,
+                    "url": "https://cometari-airportsfinder-v1.p.rapidapi.com/api/airports/by-code?code="+code,
+                    "method": "GET",
+                    "headers": {
+                        "x-rapidapi-host": "cometari-airportsfinder-v1.p.rapidapi.com",
+                        "x-rapidapi-key": "971fd40419msh7a183cd54a7cc6fp1fb7efjsnb91e2e97bd61"
+                    }
+                } 
+
+           return    $.ajax(settings).done(function (response) { 
+debugger
+                    console.log("Country Code =>"+ response); 
+                    //var res = await getCountryDetails(response[0].countryCode);
+                    console.log("Result Country =>" + response);
+
+                    //$("#result").html(response[0].name + ", " + response[0].city + ", " + res);
+
+                })
+            }
+
+// to call  await submitCode()
